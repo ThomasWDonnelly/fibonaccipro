@@ -38,29 +38,27 @@ namespace FibonacciPro.ConsoleApplication
 
         private static IInputHandler GetInputHandler()
         {
-            IInputHandler result = null;
-
             if (_options.UseInteractiveMode())
             {
-                result = new ConsoleIOHandler();
-            }
-            else
-            {
-                switch (_options.InputFileType)
-                {
-                    default:
-                    case Options.FileType.Undefined:
-                    case Options.FileType.PlainText:
-                        result = new TextFileIOHandler(_options.InputFile);
-                        break;
-                    case Options.FileType.Xml:
-                        result = new XmlIOHandler(_options.InputFile);
-                        break;
-                    
-                }
+                return new ConsoleIOHandler();
             }
 
-            return result;
+            if (_options.InputNumber > 0)
+            {
+                return new GenericIOHandler() { InputHandler = () => _options.InputNumber };
+            }
+
+            switch (_options.InputFileType)
+            {
+                default:
+                case Options.FileType.Undefined:
+                case Options.FileType.PlainText:
+                    return new TextFileIOHandler(_options.InputFile);
+                case Options.FileType.Xml:
+                    return new XmlIOHandler(_options.InputFile);
+            }
+            
+
         }
 
         private static IOutputHandler GetOutputHandler()

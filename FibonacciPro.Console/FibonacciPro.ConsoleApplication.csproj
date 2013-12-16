@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="FibonacciCalculator.cs" />
     <Compile Include="IO\ConsoleIOHandler.cs" />
+    <Compile Include="IO\GenericIOHandler.cs" />
     <Compile Include="IO\IInputHandler.cs" />
     <Compile Include="IO\IOutputHandler.cs" />
     <Compile Include="IO\TextFileIOHandler.cs" />

@@ -26,10 +26,14 @@ namespace FibonacciPro.ConsoleApplication
         /// <returns></returns>
         public bool UseInteractiveMode()
         {
+            if (InputNumber > 0)
+                //Direct input value was provided in the command line
+                return false;
+
             if (InteractiveMode && !string.IsNullOrWhiteSpace(InputFile))
                 //Interactive mode was indicated, but an input file was passed
                 return false;
-            else if (!InteractiveMode && string.IsNullOrWhiteSpace(InputFile))
+            if (!InteractiveMode && string.IsNullOrWhiteSpace(InputFile))
                 //InteractiveMode was not indicated, but no input file was passed
                 return true;
 
@@ -72,6 +76,7 @@ namespace FibonacciPro.ConsoleApplication
             return FileType.Undefined;
         }
 
+        [ValueOption(0)]
         public int InputNumber { get; set; }
 
         [HelpOption]
