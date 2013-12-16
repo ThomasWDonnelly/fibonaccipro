@@ -48,8 +48,7 @@
     <Compile Include="IO\ConsoleIOHandler.cs" />
     <Compile Include="IO\IInputHandler.cs" />
     <Compile Include="IO\IOutputHandler.cs" />
-    <Compile Include="IO\TextFileInputHandler.cs" />
-    <Compile Include="IO\TextFileOutputHandler.cs" />
+    <Compile Include="IO\TextFileIOHandler.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

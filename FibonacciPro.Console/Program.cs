@@ -53,7 +53,7 @@ namespace FibonacciPro.ConsoleApplication
                     default:
                     case Options.FileType.Undefined:
                     case Options.FileType.PlainText:
-                        result = new TextFileInputHandler(_options.InputFile);
+                        result = new TextFileIOHandler(_options.InputFile);
                         break;
                     case Options.FileType.Xml:
                         throw new NotImplementedException();
@@ -71,7 +71,7 @@ namespace FibonacciPro.ConsoleApplication
 
             if (!string.IsNullOrWhiteSpace(_options.OutputFile))
             {
-                result = new TextFileOutputHandler(_options.OutputFile);
+                result = new TextFileIOHandler(_options.OutputFile);
             }
 
             return result;

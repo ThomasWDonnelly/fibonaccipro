@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace FibonacciPro.ConsoleApplication.IO
 {
-    public class TextFileInputHandler : IInputHandler
+    public class TextFileIOHandler : IInputHandler, IOutputHandler
     {
         private string _path;
         private int _number;
 
-        public TextFileInputHandler(string path)
+        public TextFileIOHandler(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new ArgumentException("path must not be an empty string", "path");
-
-            if (!File.Exists(path))
-                throw new ArgumentException("path must be to an actual path to a file", "path");
 
             _path = path;
         }
 
         private void ReadFile()
         {
+            if (!File.Exists(_path))
+                throw new ArgumentException("path for input files must be to an actual path to a file", "path");
+
             try
             {
                 using (var fileReader = new StreamReader(_path))
@@ -45,6 +45,25 @@ namespace FibonacciPro.ConsoleApplication.IO
         {
             ReadFile();
             return _number;
+        }
+
+        public void Write(double[] results)
+        {
+            try
+            {
+
+                using (var writer = new StreamWriter(_path, append: false))
+                {
+                    foreach (var result in results)
+                    {
+                        writer.WriteLine(result);
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                throw new ApplicationException("There was an error writing to the output file.", ex);
+            }
         }
     }
 }
