@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace FibonacciPro.ConsoleApplication.IO
             return result;
         }
 
-        public void Write(double[] results)
+        public void Write(BigInteger[] results)
         {
             foreach (var number in results)
             {

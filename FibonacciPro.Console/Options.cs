@@ -13,8 +13,15 @@ namespace FibonacciPro.ConsoleApplication
     /// </summary>
     class Options
     {
+        /// <summary>
+        /// User indicated flag for Interactive Mode
+        /// </summary>
+        /// <remarks>
+        /// Use the UseInteractiveMode() function to test whether or not to use interactive mode.
+        /// Special execptions may override this flag, such as ambiguity between flag and an input file.
+        /// </remarks>
         [Option('t', "interactive", HelpText = "Enables interactive mode where the user will be prompted for input values.")]
-        protected bool InteractiveMode
+        public bool InteractiveMode
         {
             get;
             set;
@@ -73,7 +80,7 @@ namespace FibonacciPro.ConsoleApplication
             return FileType.Undefined;
         }
 
-        [Option('n',"number", HelpText="Number of items to compute in the sequence")]
+        [Option('n',"number", HelpText="Number of items to compute in the sequence. Must be greater than 0.")]
         [ValueOption(0)]
         public int InputNumber { get; set; }
 

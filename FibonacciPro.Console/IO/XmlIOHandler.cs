@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -39,7 +40,7 @@ namespace FibonacciPro.ConsoleApplication.IO
             }
         }
 
-        public void Write(double[] results)
+        public void Write(BigInteger[] results)
         {
             try
             {
@@ -63,7 +64,7 @@ namespace FibonacciPro.ConsoleApplication.IO
         public class OutputFormat
         {
             [XmlElement("result")]
-            public double[] Result { get; set; }
+            public BigInteger[] Result { get; set; }
         }
     }
 }

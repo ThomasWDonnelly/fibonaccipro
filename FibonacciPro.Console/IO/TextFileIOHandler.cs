@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace FibonacciPro.ConsoleApplication.IO
 {
@@ -44,7 +45,7 @@ namespace FibonacciPro.ConsoleApplication.IO
             return number;
         }
 
-        public void Write(double[] results)
+        public void Write(BigInteger[] results)
         {
             try
             {
