@@ -56,7 +56,7 @@ namespace FibonacciPro.ConsoleApplication
                         result = new TextFileIOHandler(_options.InputFile);
                         break;
                     case Options.FileType.Xml:
-                        throw new NotImplementedException();
+                        result = new XmlIOHandler(_options.InputFile);
                         break;
                     
                 }
