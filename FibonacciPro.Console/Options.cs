@@ -13,7 +13,7 @@ namespace FibonacciPro.ConsoleApplication
     /// </summary>
     class Options
     {
-        [Option('n', "interactive", HelpText = "Enables interactive mode where the user will be prompted for input values.")]
+        [Option('t', "interactive", HelpText = "Enables interactive mode where the user will be prompted for input values.")]
         protected bool InteractiveMode
         {
             get;
@@ -33,19 +33,16 @@ namespace FibonacciPro.ConsoleApplication
             if (InteractiveMode && !string.IsNullOrWhiteSpace(InputFile))
                 //Interactive mode was indicated, but an input file was passed
                 return false;
-            if (!InteractiveMode && string.IsNullOrWhiteSpace(InputFile))
-                //InteractiveMode was not indicated, but no input file was passed
-                return true;
 
             return InteractiveMode;
         }
 
-        [Option('i',"in", HelpText="File path to input file. XML or plain text accepted.")]
+        [Option('i',"input-file", HelpText="File path to input file. XML or plain text accepted.")]
         public string InputFile { get; set; }
 
         public enum FileType { Undefined, PlainText, Xml }
 
-        [Option('o',"out",HelpText="File path to output file. Files ending in .xml will be an XML format.")]
+        [Option('o',"output-file",HelpText="File path to output file. Files ending in .xml will be an XML format.")]
         public string OutputFile { get; set; }
 
         public FileType OutputFileType
@@ -76,6 +73,7 @@ namespace FibonacciPro.ConsoleApplication
             return FileType.Undefined;
         }
 
+        [Option('n',"number", HelpText="Number of items to compute in the sequence")]
         [ValueOption(0)]
         public int InputNumber { get; set; }
 

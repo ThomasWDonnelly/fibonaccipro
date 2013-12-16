@@ -30,8 +30,14 @@ namespace FibonacciPro.ConsoleApplication
         private static Options ParseOptions(string[] args) {
             var options = new Options();
             
-            if (!CommandLine.Parser.Default.ParseArgumentsStrict(args, options))
-                return options;
+            CommandLine.Parser.Default.ParseArgumentsStrict(args, options);
+
+            if (options.InputNumber <= 0 && string.IsNullOrWhiteSpace(options.InputFile))
+            {
+                Console.Write(CommandLine.Text.HelpText.AutoBuild(options));
+                Environment.Exit(CommandLine.Parser.DefaultExitCodeFail);
+            }
+                
 
             return options;
         }

@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FibonacciPro.ConsoleApplication</RootNamespace>
-    <AssemblyName>FibonacciPro</AssemblyName>
+    <AssemblyName>FibPro</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
