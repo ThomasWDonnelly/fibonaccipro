@@ -10,7 +10,6 @@ namespace FibonacciPro.ConsoleApplication.IO
     public class TextFileIOHandler : IInputHandler, IOutputHandler
     {
         private string _path;
-        private int _number;
 
         public TextFileIOHandler(string path)
         {
@@ -20,8 +19,10 @@ namespace FibonacciPro.ConsoleApplication.IO
             _path = path;
         }
 
-        private void ReadFile()
+        public int GetNumber()
         {
+            var number = 0;
+
             if (!File.Exists(_path))
                 throw new ArgumentException("path for input files must be to an actual path to a file", "path");
 
@@ -29,7 +30,7 @@ namespace FibonacciPro.ConsoleApplication.IO
             {
                 using (var fileReader = new StreamReader(_path))
                 {
-                    if (!int.TryParse(fileReader.ReadLine(), out _number))
+                    if (!int.TryParse(fileReader.ReadLine(), out number))
                     {
                         throw new ApplicationException("Input file did not contain a valid number on the first line.");
                     }
@@ -39,12 +40,8 @@ namespace FibonacciPro.ConsoleApplication.IO
             {
                 throw new ApplicationException("There was a problem reading the file", ex);
             }
-        }
 
-        public int GetNumber()
-        {
-            ReadFile();
-            return _number;
+            return number;
         }
 
         public void Write(double[] results)
