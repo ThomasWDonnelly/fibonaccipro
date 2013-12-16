@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FibonacciPro.ConsoleApplication.IO
 {
-    public class TextFileIOHandler : IIOHandler
+    public class TextFileIOHandler : IInputHandler
     {
         private string _path;
         private int _number;

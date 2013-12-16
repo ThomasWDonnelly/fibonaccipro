@@ -45,8 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FibonacciCalculator.cs" />
-    <Compile Include="IO\IIOHandler.cs" />
-    <Compile Include="IO\InteractiveIOHandler.cs" />
+    <Compile Include="IO\ConsoleOutputHandler.cs" />
+    <Compile Include="IO\IInputHandler.cs" />
+    <Compile Include="IO\InteractiveInputHandler.cs" />
+    <Compile Include="IO\IOutputHandler.cs" />
     <Compile Include="IO\TextFileIOHandler.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />

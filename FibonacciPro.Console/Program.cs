@@ -17,12 +17,11 @@ namespace FibonacciPro.ConsoleApplication
 
             try
             {
-                var ioHandler = GetInputHandler();
-                var result = FibonacciCalculator.Calculate(ioHandler.GetNumber());
-                foreach (var number in result)
-                {
-                    Console.Write(number + " ");
-                }
+                var inputHandler = GetInputHandler();
+                var result = FibonacciCalculator.Calculate(inputHandler.GetNumber());
+
+                var outputHandler = GetOutputHandler();
+                outputHandler.Write(result);
             }
             catch (Exception ex)
             {
@@ -39,13 +38,13 @@ namespace FibonacciPro.ConsoleApplication
             return options;
         }
 
-        private static IIOHandler GetInputHandler()
+        private static IInputHandler GetInputHandler()
         {
-            IIOHandler result = null;
+            IInputHandler result = null;
 
             if (_options.UseInteractiveMode())
             {
-                result = new InteractiveIOHandler();
+                result = new InteractiveInputHandler();
             }
             else
             {
@@ -62,6 +61,13 @@ namespace FibonacciPro.ConsoleApplication
                     
                 }
             }
+
+            return result;
+        }
+
+        private static IOutputHandler GetOutputHandler()
+        {
+            IOutputHandler result = new ConsoleOutputHandler();
 
             return result;
         }

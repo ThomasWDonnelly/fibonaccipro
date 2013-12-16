@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FibonacciPro.ConsoleApplication.IO
 {
-    public class InteractiveIOHandler : IIOHandler
+    public class InteractiveInputHandler : IInputHandler
     {
         public int GetNumber()
         {
@@ -21,6 +21,11 @@ namespace FibonacciPro.ConsoleApplication.IO
             } while (result == 0);
 
             return result;            
+        }
+
+        public void Write(double[] results)
+        {
+            throw new NotImplementedException();
         }
     }
 }
