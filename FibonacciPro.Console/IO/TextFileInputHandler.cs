@@ -7,22 +7,20 @@ using System.Threading.Tasks;
 
 namespace FibonacciPro.ConsoleApplication.IO
 {
-    public class TextFileIOHandler : IInputHandler
+    public class TextFileInputHandler : IInputHandler
     {
         private string _path;
         private int _number;
 
-        public TextFileIOHandler(string path)
+        public TextFileInputHandler(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
                 throw new ArgumentException("path must not be an empty string", "path");
 
             if (!File.Exists(path))
-                throw new ArgumentException("path must be to an actual path to a file");
+                throw new ArgumentException("path must be to an actual path to a file", "path");
 
             _path = path;
-
-            ReadFile();
         }
 
         private void ReadFile()

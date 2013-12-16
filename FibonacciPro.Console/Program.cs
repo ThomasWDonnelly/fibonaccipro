@@ -44,7 +44,7 @@ namespace FibonacciPro.ConsoleApplication
 
             if (_options.UseInteractiveMode())
             {
-                result = new InteractiveInputHandler();
+                result = new ConsoleIOHandler();
             }
             else
             {
@@ -53,7 +53,7 @@ namespace FibonacciPro.ConsoleApplication
                     default:
                     case Options.FileType.Undefined:
                     case Options.FileType.PlainText:
-                        result = new TextFileIOHandler(_options.InputFile);
+                        result = new TextFileInputHandler(_options.InputFile);
                         break;
                     case Options.FileType.Xml:
                         throw new NotImplementedException();
@@ -67,7 +67,12 @@ namespace FibonacciPro.ConsoleApplication
 
         private static IOutputHandler GetOutputHandler()
         {
-            IOutputHandler result = new ConsoleOutputHandler();
+            IOutputHandler result = new ConsoleIOHandler();
+
+            if (!string.IsNullOrWhiteSpace(_options.OutputFile))
+            {
+                result = new TextFileOutputHandler(_options.OutputFile);
+            }
 
             return result;
         }
