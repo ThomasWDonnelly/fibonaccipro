@@ -23,10 +23,8 @@ namespace FibonacciPro.ConsoleApplication
                 var outputHandler = GetOutputHandler();
                 outputHandler.Write(result);
             }
-            catch (Exception ex)
-            {
-                Console.Write(ex.Message);
-            }
+            catch (ApplicationException ex) { Console.Write(ex.Message); }
+            catch (ArgumentException ex) { Console.Write(ex.Message); }
         }
 
         private static Options ParseOptions(string[] args) {
@@ -71,7 +69,14 @@ namespace FibonacciPro.ConsoleApplication
 
             if (!string.IsNullOrWhiteSpace(_options.OutputFile))
             {
-                result = new TextFileIOHandler(_options.OutputFile);
+                switch (_options.OutputFileType)
+                {
+                    default:
+                    case Options.FileType.PlainText:
+                        return new TextFileIOHandler(_options.OutputFile);
+                    case Options.FileType.Xml:
+                        return new XmlIOHandler(_options.OutputFile);
+                }
             }
 
             return result;

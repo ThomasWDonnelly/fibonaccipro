@@ -46,31 +46,30 @@ namespace FibonacciPro.ConsoleApplication
 
         public FileType OutputFileType
         {
-            get;
-            set;
+            get { return GetFileTypeFromPath(OutputFile); }
         }
 
         public FileType InputFileType
         {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(InputFile) || !InputFile.Contains('.'))
-                    return FileType.Undefined;
+            get { return GetFileTypeFromPath(InputFile); }
+        }
 
-                var extension = InputFile.Substring(InputFile.LastIndexOf('.'));
-
-                switch (extension)
-                {
-                    case ".txt":
-                        return FileType.PlainText;
-                        break;
-                    case ".xml":
-                        return FileType.Xml;
-                        break;
-                }
-
+        private FileType GetFileTypeFromPath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path) || !path.Contains('.'))
                 return FileType.Undefined;
+
+            var extension = path.Substring(path.LastIndexOf('.'));
+
+            switch (extension)
+            {
+                case ".txt":
+                    return FileType.PlainText;
+                case ".xml":
+                    return FileType.Xml;
             }
+
+            return FileType.Undefined;
         }
 
         public int InputNumber { get; set; }
