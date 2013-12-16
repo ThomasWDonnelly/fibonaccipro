@@ -50,7 +50,28 @@ namespace FibonacciPro.ConsoleApplication
             set;
         }
 
-        public FileType InputFileType { get; set; }
+        public FileType InputFileType
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(InputFile) || !InputFile.Contains('.'))
+                    return FileType.Undefined;
+
+                var extension = InputFile.Substring(InputFile.LastIndexOf('.'));
+
+                switch (extension)
+                {
+                    case ".txt":
+                        return FileType.PlainText;
+                        break;
+                    case ".xml":
+                        return FileType.Xml;
+                        break;
+                }
+
+                return FileType.Undefined;
+            }
+        }
 
         public int InputNumber { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FibonacciPro.ConsoleApplication.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,32 +15,19 @@ namespace FibonacciPro.ConsoleApplication
         {
             _options = ParseOptions(args);
 
-            if (_options.UseInteractiveMode())
+            try
             {
-                Interact();
+                var ioHandler = GetInputHandler();
+                var result = FibonacciCalculator.Calculate(ioHandler.GetNumber());
+                foreach (var number in result)
+                {
+                    Console.Write(number + " ");
+                }
             }
-
-            var result = FibonacciCalculator.Calculate(_options.InputNumber);
-
-            foreach (var number in result)
+            catch (Exception ex)
             {
-                Console.Write(number + " ");
+                Console.Write(ex.Message);
             }
-        }
-
-        private static void Interact()
-        {
-            var result = 0;
-
-            do
-            {
-                Console.Write("Please enter the number of sequences to calculate: ");
-                var input = Console.ReadLine();
-                int.TryParse(input, out result);
-
-            } while (result == 0);
-
-            _options.InputNumber = result;
         }
 
         private static Options ParseOptions(string[] args) {
@@ -49,6 +37,33 @@ namespace FibonacciPro.ConsoleApplication
                 return options;
 
             return options;
+        }
+
+        private static IIOHandler GetInputHandler()
+        {
+            IIOHandler result = null;
+
+            if (_options.UseInteractiveMode())
+            {
+                result = new InteractiveIOHandler();
+            }
+            else
+            {
+                switch (_options.InputFileType)
+                {
+                    default:
+                    case Options.FileType.Undefined:
+                    case Options.FileType.PlainText:
+                        result = new TextFileIOHandler(_options.InputFile);
+                        break;
+                    case Options.FileType.Xml:
+                        throw new NotImplementedException();
+                        break;
+                    
+                }
+            }
+
+            return result;
         }
     }
 }
