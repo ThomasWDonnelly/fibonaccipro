@@ -14,9 +14,16 @@ namespace FibonacciPro.ConsoleApplication
         {
             _options = ParseOptions(args);
 
-            if (_options.InteractiveMode)
+            if (_options.UseInteractiveMode())
             {
                 Interact();
+            }
+
+            var result = FibonacciCalculator.Calculate(_options.InputNumber);
+
+            foreach (var number in result)
+            {
+                Console.Write(number + " ");
             }
         }
 
@@ -37,7 +44,9 @@ namespace FibonacciPro.ConsoleApplication
 
         private static Options ParseOptions(string[] args) {
             var options = new Options();
-            CommandLine.Parser.Default.ParseArguments(args, options);
+            
+            if (!CommandLine.Parser.Default.ParseArgumentsStrict(args, options))
+                return options;
 
             return options;
         }
