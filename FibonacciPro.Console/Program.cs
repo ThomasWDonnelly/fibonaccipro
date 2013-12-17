@@ -32,7 +32,7 @@ namespace FibonacciPro.ConsoleApplication
             
             CommandLine.Parser.Default.ParseArgumentsStrict(args, options);
 
-            if (options.InputNumber <= 0 && string.IsNullOrWhiteSpace(options.InputFile))
+            if (options.InputNumber <= 0 && string.IsNullOrWhiteSpace(options.InputFile) && !options.UseInteractiveMode())
             {
                 Console.Error.Write(CommandLine.Text.HelpText.AutoBuild(options));
                 Environment.Exit(CommandLine.Parser.DefaultExitCodeFail);

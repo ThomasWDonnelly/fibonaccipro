@@ -192,12 +192,71 @@ namespace FibonacciPro.Tests
             Assert.AreEqual(SUCCESS, results.ExitCode);
         }
 
+        [TestMethod]
+        public void users_can_give_interactive_input()
+        {
+            //Arrange
+            var fib4 = "3";
+
+            //Act
+            var results = FibPro("--interactive","5\n");
+            var sequence = results.StandardOut.Split(' ');
+
+            //Assert
+            Assert.AreEqual(fib4, sequence.Last());
+            Assert.AreEqual(SUCCESS, results.ExitCode);
+        }
+
+        [TestMethod]
+        public void can_take_text_input()
+        {
+            //Arrange
+            var fib4 = "3";
+
+            //Act
+            var results = FibPro("-i input.txt");
+            var sequence = results.StandardOut.Split(' ');
+
+            //Assert
+            Assert.AreEqual(fib4, sequence.Last());
+            Assert.AreEqual(SUCCESS, results.ExitCode);
+        }
+
+        [TestMethod]
+        public void text_input_with_negative_input_fails()
+        {
+            //Arrange
+            //See negative-input.txt file
+            
+            //Act
+            var results = FibPro("-i negative-input.txt");
+
+            //Assert
+            Assert.IsFalse(string.IsNullOrWhiteSpace(results.StandardError));
+            Assert.AreEqual(ERROR, results.ExitCode);
+        }
+
+
+        [TestMethod]
+        public void text_input_with_non_numeric_input_fails()
+        {
+            //Arrange
+            //See non-numeric-input.txt file
+
+            //Act
+            var results = FibPro("-i non-numeric-input.txt");
+
+            //Assert
+            Assert.IsFalse(string.IsNullOrWhiteSpace(results.StandardError));
+            Assert.AreEqual(ERROR, results.ExitCode);
+        }
+
         /// <summary>
         /// Invokes FibPro and returns a string of the standard output
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        private FibProOutput FibPro(string args)
+        private FibProOutput FibPro(string args, string interactiveInput = null)
         {
             var output = new StringBuilder();
             var error = new StringBuilder();
@@ -207,14 +266,13 @@ namespace FibonacciPro.Tests
                 process.StartInfo = new ProcessStartInfo()
                 {
                     Arguments = args,
-                    CreateNoWindow = true,
                     FileName = "fibpro.exe",
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
                 };
-
+                
                 using (var outputWaitHandle = new AutoResetEvent(false))
                 using (var errorWaitHandle = new AutoResetEvent(false))
                 {
@@ -243,8 +301,14 @@ namespace FibonacciPro.Tests
                     };
 
                     process.Start();
+
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
+
+                    if (!string.IsNullOrWhiteSpace(interactiveInput))
+                    {
+                        process.StandardInput.WriteLine(interactiveInput);                       
+                    }
 
                     if (process.WaitForExit(TIMEOUT_MILLISECONDS) &&
                     outputWaitHandle.WaitOne(TIMEOUT_MILLISECONDS) &&
