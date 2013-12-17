@@ -30,9 +30,19 @@ namespace FibonacciPro.ConsoleApplication.IO
             try
             {
                 var doc = XDocument.Load(_path);
-                var result = Convert.ToInt32(doc.Element("fibinput").Value);
-                return result;
-                
+                var inputValue = 0;
+
+                if(doc.Element("fibinput") == null)
+                    throw new ArgumentException("XML file did not contain fibinput as the root element.", "path");
+
+                if (int.TryParse(doc.Element("fibinput").Value, out inputValue))
+                {
+                    return inputValue;
+                }
+                else
+                {
+                    throw new ArgumentException("fibinput element did not contain an integer value.", "path");
+                }
             }
             catch (XmlException ex)
             {

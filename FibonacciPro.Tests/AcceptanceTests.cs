@@ -212,6 +212,7 @@ namespace FibonacciPro.Tests
         {
             //Arrange
             var fib4 = "3";
+            //See input.txt
 
             //Act
             var results = FibPro("-i input.txt");
@@ -245,6 +246,78 @@ namespace FibonacciPro.Tests
 
             //Act
             var results = FibPro("-i non-numeric-input.txt");
+
+            //Assert
+            Assert.IsFalse(string.IsNullOrWhiteSpace(results.StandardError));
+            Assert.AreEqual(ERROR, results.ExitCode);
+        }
+
+        [TestMethod]
+        public void can_take_xml_input()
+        {
+            //Arrange
+            var fib21 = "10946";
+            //see input.xml
+
+            //Act
+            var results = FibPro("-i input.xml");
+            var sequence = results.StandardOut.Split(' ');
+
+            //Assert
+            Assert.AreEqual(fib21, sequence.Last());
+            Assert.AreEqual(SUCCESS, results.ExitCode);
+        }
+
+        [TestMethod]
+        public void xml_input_with_negative_input_fails()
+        {
+            //Arrange
+            //See negative-input.xml file
+
+            //Act
+            var results = FibPro("-i negative-input.xml");
+
+            //Assert
+            Assert.IsFalse(string.IsNullOrWhiteSpace(results.StandardError));
+            Assert.AreEqual(ERROR, results.ExitCode);
+        }
+
+        [TestMethod]
+        public void xml_input_with_non_numeric_input_fails()
+        {
+            //Arrange
+            //See non-numeric-input.xml file
+
+            //Act
+            var results = FibPro("-i non-numeric-input.xml");
+
+            //Assert
+            Assert.IsFalse(string.IsNullOrWhiteSpace(results.StandardError));
+            Assert.AreEqual(ERROR, results.ExitCode);
+        }
+
+        [TestMethod]
+        public void xml_input_with_invalid_schema_elements_fails()
+        {
+            //Arrange
+            //See invalid-schema-elements-input.xml file
+
+            //Act
+            var results = FibPro("-i invalid-schema-elements-input.xml");
+
+            //Assert
+            Assert.IsFalse(string.IsNullOrWhiteSpace(results.StandardError));
+            Assert.AreEqual(ERROR, results.ExitCode);
+        }
+
+        [TestMethod]
+        public void xml_input_with_invalid_markup_fails()
+        {
+            //Arrange
+            //See invalid-syntax-input.xml file
+
+            //Act
+            var results = FibPro("-i invalid-markup-input.xml");
 
             //Assert
             Assert.IsFalse(string.IsNullOrWhiteSpace(results.StandardError));

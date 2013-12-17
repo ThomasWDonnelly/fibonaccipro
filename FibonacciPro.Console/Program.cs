@@ -37,7 +37,6 @@ namespace FibonacciPro.ConsoleApplication
                 Console.Error.Write(CommandLine.Text.HelpText.AutoBuild(options));
                 Environment.Exit(CommandLine.Parser.DefaultExitCodeFail);
             }
-                
 
             return options;
         }
