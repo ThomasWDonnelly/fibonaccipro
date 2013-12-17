@@ -7,6 +7,8 @@ using System.Numerics;
 using System.Text;
 using System.Threading;
 
+using FibonacciPro.Tests.Extensions;
+
 namespace FibonacciPro.Tests
 {
     [TestClass]
@@ -322,6 +324,37 @@ namespace FibonacciPro.Tests
             //Assert
             Assert.IsFalse(string.IsNullOrWhiteSpace(results.StandardError));
             Assert.AreEqual(ERROR, results.ExitCode);
+        }
+
+        [TestMethod]
+        public void can_output_text_files()
+        {
+            //Arrange
+            var fib21 = "10946";
+            //see input.xml
+
+            //Act
+            var results = FibPro("22 -o output.txt");
+            
+
+            //Assert
+            var lastItem = GetLastItemFromTextFile("output.txt");
+
+            Assert.AreEqual(fib21, lastItem);
+            Assert.AreEqual(SUCCESS, results.ExitCode);
+        }
+
+        private string GetLastItemFromTextFile(string path)
+        {
+            string lastItem = null;
+
+            using (var streamReader = new StreamReader(path))
+            {
+                var results = streamReader.ReadToEnd();
+                lastItem = results.Split('\n').SecondLast().Trim(); //Last item is a blank line
+            }
+
+            return lastItem;
         }
 
         /// <summary>
