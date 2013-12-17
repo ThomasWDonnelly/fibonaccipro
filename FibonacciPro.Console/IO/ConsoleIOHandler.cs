@@ -26,9 +26,12 @@ namespace FibonacciPro.ConsoleApplication.IO
 
         public void Write(BigInteger[] results)
         {
-            foreach (var number in results)
+            for (var i=0; i< results.Length; i++)
             {
-                Console.Write(number + " ");
+                Console.Write(
+                    string.Format("{0}{1}", results[i], i < results.Length - 1 ? " " : string.Empty)
+                    );
+                
             }
         }
     }
