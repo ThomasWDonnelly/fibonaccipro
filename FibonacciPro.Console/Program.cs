@@ -23,8 +23,8 @@ namespace FibonacciPro.ConsoleApplication
                 var outputHandler = GetOutputHandler();
                 outputHandler.Write(result);
             }
-            catch (ApplicationException ex) { Console.Write(ex.Message); }
-            catch (ArgumentException ex) { Console.Write(ex.Message); }
+            catch (ApplicationException ex) { Console.Error.Write(ex.Message); Environment.Exit(CommandLine.Parser.DefaultExitCodeFail); }
+            catch (ArgumentException ex) { Console.Error.Write(ex.Message); Environment.Exit(CommandLine.Parser.DefaultExitCodeFail); }
         }
 
         private static Options ParseOptions(string[] args) {
@@ -34,7 +34,7 @@ namespace FibonacciPro.ConsoleApplication
 
             if (options.InputNumber <= 0 && string.IsNullOrWhiteSpace(options.InputFile))
             {
-                Console.Write(CommandLine.Text.HelpText.AutoBuild(options));
+                Console.Error.Write(CommandLine.Text.HelpText.AutoBuild(options));
                 Environment.Exit(CommandLine.Parser.DefaultExitCodeFail);
             }
                 
