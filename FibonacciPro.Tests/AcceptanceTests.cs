@@ -9,6 +9,9 @@ namespace FibonacciPro.Tests
     public class AcceptanceTests
     {
 
+        public const int SUCCESS = 0;
+        public const int ERROR = 1;
+
         [TestMethod]
         public void n_equals_1_returns_first_number()
         {
@@ -19,7 +22,8 @@ namespace FibonacciPro.Tests
             var results = FibPro("1");
 
             //Assert
-            Assert.AreEqual(expectedOutput, results);
+            Assert.AreEqual(expectedOutput, results.StandardOut);
+            Assert.AreEqual(SUCCESS, results.ExitCode);
         }
 
         [TestMethod]
@@ -32,7 +36,8 @@ namespace FibonacciPro.Tests
             var results = FibPro("2");
 
             //Assert
-            Assert.AreEqual(results, expectedOutput);
+            Assert.AreEqual(expectedOutput, results.StandardOut);
+            Assert.AreEqual(SUCCESS, results.ExitCode);
         }
 
         [TestMethod]
@@ -45,7 +50,8 @@ namespace FibonacciPro.Tests
             var results = FibPro("3");
 
             //Assert
-            Assert.AreEqual(results, expectedOutput);
+            Assert.AreEqual(expectedOutput, results.StandardOut);
+            Assert.AreEqual(SUCCESS, results.ExitCode);
         }
 
         [TestMethod]
@@ -58,7 +64,21 @@ namespace FibonacciPro.Tests
             var results = FibPro("4");
 
             //Assert
-            Assert.AreEqual(results, expectedOutput);
+            Assert.AreEqual(expectedOutput, results.StandardOut);
+            Assert.AreEqual(SUCCESS, results.ExitCode);
+        }
+
+        [TestMethod]
+        public void n_equals_negative_one_returns_non_zero_exit_code_and_error_message()
+        {
+            //Arrange
+
+            //Act
+            var results = FibPro("-1");
+
+            //Assert
+            Assert.IsFalse(string.IsNullOrWhiteSpace(results.StandardError));
+            Assert.AreEqual(ERROR, results.ExitCode);
         }
 
         /// <summary>
@@ -66,7 +86,7 @@ namespace FibonacciPro.Tests
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        private string FibPro(string args)
+        private FibProOutput FibPro(string args)
         {
             var process = Process.Start(new ProcessStartInfo()
             {
@@ -81,7 +101,18 @@ namespace FibonacciPro.Tests
 
             process.WaitForExit();
 
-            return process.StandardOutput.ReadToEnd();
+            return new FibProOutput {
+                StandardOut = process.StandardOutput.ReadToEnd(),
+                StandardError = process.StandardError.ReadToEnd(),
+                ExitCode = process.ExitCode
+            };
+        }
+
+        public class FibProOutput
+        {
+            public string StandardOut { get; set; }
+            public string StandardError { get; set; }
+            public int ExitCode { get; set; }
         }
     }
 }
