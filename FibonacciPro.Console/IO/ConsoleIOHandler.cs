@@ -29,7 +29,7 @@ namespace FibonacciPro.ConsoleApplication.IO
             for (var i=0; i< results.Length; i++)
             {
                 Console.Write(
-                    string.Format("{0}{1}", results[i], i < results.Length - 1 ? " " : string.Empty)
+                    string.Format("{0}{1}", results[i].ToString("R0"), i < results.Length - 1 ? " " : string.Empty)
                     );
                 
             }

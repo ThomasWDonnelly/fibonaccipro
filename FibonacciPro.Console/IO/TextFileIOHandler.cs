@@ -54,7 +54,7 @@ namespace FibonacciPro.ConsoleApplication.IO
                 {
                     foreach (var result in results)
                     {
-                        writer.WriteLine(result);
+                        writer.WriteLine(result.ToString("R0"));
                     }
                 }
             }
