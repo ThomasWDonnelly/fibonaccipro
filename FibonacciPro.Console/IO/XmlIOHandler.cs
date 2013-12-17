@@ -54,7 +54,7 @@ namespace FibonacciPro.ConsoleApplication.IO
         {
             try
             {
-                var resultsObject = new OutputFormat() { Result = results };
+                var resultsObject = new OutputFormat() { Result = results.Select(x => x.ToString("R0")).ToArray() };
 
                 using (var fileStream = new FileStream(_path, FileMode.Create))
                 using (var xmlWriter = new XmlTextWriter(fileStream, Encoding.Unicode))
@@ -74,7 +74,7 @@ namespace FibonacciPro.ConsoleApplication.IO
         public class OutputFormat
         {
             [XmlElement("result")]
-            public BigInteger[] Result { get; set; }
+            public string[] Result { get; set; }
         }
     }
 }

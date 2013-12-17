@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 
 using FibonacciPro.Tests.Extensions;
+using System.Xml.Linq;
 
 namespace FibonacciPro.Tests
 {
@@ -344,6 +345,24 @@ namespace FibonacciPro.Tests
             Assert.AreEqual(SUCCESS, results.ExitCode);
         }
 
+        [TestMethod]
+        public void can_output_xml_files()
+        {
+            //Arrange
+            var fib21 = "10946";
+            //see input.xml
+
+            //Act
+            var results = FibPro("22 -o output.xml");
+
+
+            //Assert
+            var lastItem = GetLastItemFromXmlFile("output.xml");
+
+            Assert.AreEqual(fib21, lastItem);
+            Assert.AreEqual(SUCCESS, results.ExitCode);
+        }
+
         private string GetLastItemFromTextFile(string path)
         {
             string lastItem = null;
@@ -355,6 +374,13 @@ namespace FibonacciPro.Tests
             }
 
             return lastItem;
+        }
+
+        private string GetLastItemFromXmlFile(string path)
+        {
+            var doc = XDocument.Load(path);
+
+            return doc.Element("fiboutput").Elements("result").Last().Value;
         }
 
         /// <summary>
