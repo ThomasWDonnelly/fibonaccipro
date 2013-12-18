@@ -18,27 +18,23 @@ namespace FibonacciPro.ConsoleApplication
             //By definition
             if (n == 1)
             {
-                return new BigInteger[1] { 0 };
+                return new BigInteger[] { 0 };
             }
 
             //By definition
             if (n == 2)
             {
-                return new BigInteger[2] { 0, 1 };
+                return new BigInteger[] { 0, 1 };
             }
 
             var result = new BigInteger[n];
 
-            var a = result[0] = 0;
-            var b = result[1] = 1;
+            result[0] = 0;
+            result[1] = 1;
 
-
-            for (var i = 0; i < n-2; i++)
+            for (var i = 0; i < n - 2; i++)
             {
-                var temp = a;
-                a = b;
-                b = temp + b;
-                result[i + 2] = b;
+                result[i + 2] = result[i] + result[i + 1];
             }
 
             return result;
