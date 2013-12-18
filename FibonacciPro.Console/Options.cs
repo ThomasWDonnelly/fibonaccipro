@@ -1,10 +1,6 @@
-﻿using CommandLine;
+﻿using System.Linq;
+using CommandLine;
 using CommandLine.Text;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FibonacciPro.ConsoleApplication
 {
@@ -33,23 +29,18 @@ namespace FibonacciPro.ConsoleApplication
         /// <returns></returns>
         public bool UseInteractiveMode()
         {
-            if (InputNumber > 0)
-                //Direct input value was provided in the command line
-                return false;
-
-            if (InteractiveMode && !string.IsNullOrWhiteSpace(InputFile))
-                //Interactive mode was indicated, but an input file was passed
-                return false;
-
-            return InteractiveMode;
+            //No valid direct input value was provided in the command line
+            //and no input file was specified
+            //and interactive mode was indicated
+            return InputNumber <= 0 && string.IsNullOrWhiteSpace(InputFile) && InteractiveMode;
         }
 
-        [Option('i',"input-file", HelpText="File path to input file. XML or plain text accepted.")]
+        [Option('i', "input-file", HelpText = "File path to input file. XML or plain text accepted.")]
         public string InputFile { get; set; }
 
         public enum FileType { Undefined, PlainText, Xml }
 
-        [Option('o',"output-file",HelpText="File path to output file. Files ending in .xml will be an XML format.")]
+        [Option('o', "output-file", HelpText = "File path to output file. Files ending in .xml will be an XML format.")]
         public string OutputFile { get; set; }
 
         public FileType OutputFileType
@@ -80,12 +71,13 @@ namespace FibonacciPro.ConsoleApplication
             return FileType.Undefined;
         }
 
-        [Option('n',"number", HelpText="Number of items to compute in the sequence. Must be greater than 0.")]
+        [Option('n', "number", HelpText = "Number of items to compute in the sequence. Must be greater than 0.")]
         [ValueOption(0)]
         public int InputNumber { get; set; }
 
         [HelpOption]
-        public string GetUsage() {
+        public string GetUsage()
+        {
             return HelpText.AutoBuild(this, (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
         }
     }
