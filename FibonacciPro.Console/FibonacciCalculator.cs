@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FibonacciPro.ConsoleApplication
 {
@@ -14,7 +10,7 @@ namespace FibonacciPro.ConsoleApplication
         /// </summary>
         /// <param name="n">number of digits of the fibonacci sequence to compute</param>
         /// <returns>an array containing the first n numbers in the fibonacci sequence</returns>
-        public static BigInteger[] Calculate(int n)
+        public BigInteger[] Calculate(int n)
         {
             if (n <= 0)
                 throw new ArgumentException("n must be greater than 0", "n");
