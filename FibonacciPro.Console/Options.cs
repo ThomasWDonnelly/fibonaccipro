@@ -17,11 +17,7 @@ namespace FibonacciPro.ConsoleApplication
         /// Special execptions may override this flag, such as ambiguity between flag and an input file.
         /// </remarks>
         [Option('t', "interactive", HelpText = "Enables interactive mode where the user will be prompted for input values.")]
-        public bool InteractiveMode
-        {
-            get;
-            set;
-        }
+        public bool InteractiveMode { get; set; }
 
         /// <summary>
         /// Handles special exceptions to override Interactive mode argument.
@@ -75,10 +71,16 @@ namespace FibonacciPro.ConsoleApplication
         [ValueOption(0)]
         public int InputNumber { get; set; }
 
+        /// <summary>
+        /// User indicated flag as to whether the generator method or an array of values should be computed.
+        /// </summary>
+        [Option('g', "generator", HelpText = "Use generator method to produce the sequence.")]
+        public bool UseGenerator { get; set; }
+
         [HelpOption]
         public string GetUsage()
         {
-            return HelpText.AutoBuild(this, (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
+            return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
         }
     }
 }

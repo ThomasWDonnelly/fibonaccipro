@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+
 using FibonacciPro.ConsoleApplication.IO;
 
 namespace FibonacciPro.ConsoleApplication
@@ -15,7 +20,11 @@ namespace FibonacciPro.ConsoleApplication
             {
                 var inputHandler = GetInputHandler();
                 var calculator = new FibonacciCalculator();
-                var result = calculator.Calculate(inputHandler.GetNumber());
+                var number = inputHandler.GetNumber();
+
+                var result = _options.UseGenerator 
+                                ? calculator.CalculateEnumerable(number)
+                                : calculator.Calculate(number);
 
                 var outputHandler = GetOutputHandler();
                 outputHandler.Write(result);
