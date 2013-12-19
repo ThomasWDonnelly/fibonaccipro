@@ -20,7 +20,8 @@ namespace Fibonacci.Web.Controllers
             }
             else
             {
-                Debug.WriteLine("NOT authenticated");
+                return RedirectToAction("Login", "Account", new {returnUrl = "/" + viewModel.InputValue});
+                //Debug.WriteLine("NOT authenticated");
             }
 
             //path: "/" (no parameter)
