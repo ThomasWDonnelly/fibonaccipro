@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Fibonacci.Web.Models;
 
 namespace Fibonacci.Web.Controllers
@@ -12,6 +13,16 @@ namespace Fibonacci.Web.Controllers
     {
         public ActionResult Index(IndexViewModel viewModel)
         {
+
+            if (User.Identity.IsAuthenticated)
+            {
+                Debug.WriteLine("authenticated");
+            }
+            else
+            {
+                Debug.WriteLine("NOT authenticated");
+            }
+
             //path: "/" (no parameter)
             if (viewModel.InputValue == null)
             {
@@ -20,7 +31,7 @@ namespace Fibonacci.Web.Controllers
             else
             {
                 Debug.WriteLine("n was NOT null");
-                }
+            }
             return View();
         }
     }

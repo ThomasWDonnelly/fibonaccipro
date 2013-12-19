@@ -14,6 +14,16 @@ namespace Fibonacci.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Register",
+                url: "register",
+                defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "Login",
+                url: "login",
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
                 name: "Input",
                 url: "{n}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
