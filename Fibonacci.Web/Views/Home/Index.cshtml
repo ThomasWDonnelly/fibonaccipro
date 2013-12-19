@@ -1,4 +1,5 @@
 ﻿@model Fibonacci.Web.Models.IndexViewModel
+
 @{
     ViewBag.Title = "Home Page";
 }
@@ -16,9 +17,9 @@
 
             <div class="form-group">
 
-                @Html.LabelFor(Model => Model.InputValue, new { @class = "sr-only" })
+                @Html.LabelFor(n => n.InputValue, new { @class = "sr-only" })
 
-                @Html.TextBoxFor(Model => Model.InputValue, new { @class = "form-control", placeholder = "Input value" })
+                @Html.TextBoxFor(n => n.InputValue, new { @class = "form-control", placeholder = "Input value" })
 
             </div>
 
@@ -26,3 +27,19 @@
         }
     </div>
 </div>
+@if (Model.InputValue != null)
+{
+
+    <hr />
+    <h1>Results for: @Model.InputValue</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <ol>
+                @foreach (var result in Model.Results)
+                {
+                    <li>@result</li>
+                }
+            </ol>
+        </div>
+    </div>
+}

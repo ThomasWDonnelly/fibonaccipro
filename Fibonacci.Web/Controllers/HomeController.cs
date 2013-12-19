@@ -13,17 +13,9 @@ namespace Fibonacci.Web.Controllers
     {
         public ActionResult Index(IndexViewModel viewModel)
         {
-
-            if (User.Identity.IsAuthenticated)
-            {
-                Debug.WriteLine("authenticated");
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account", new {returnUrl = "/" + viewModel.InputValue});
-                //Debug.WriteLine("NOT authenticated");
-            }
-
+            //redirect if not logged in yet
+            if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new {returnUrl = "/" + viewModel.InputValue});
+       
             //path: "/" (no parameter)
             if (viewModel.InputValue == null)
             {
@@ -33,7 +25,7 @@ namespace Fibonacci.Web.Controllers
             {
                 Debug.WriteLine("n was NOT null");
             }
-            return View();
+            return View(viewModel);
         }
     }
 }
