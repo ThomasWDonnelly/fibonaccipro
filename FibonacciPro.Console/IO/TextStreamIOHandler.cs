@@ -20,7 +20,7 @@ namespace FibonacciPro.ConsoleApplication.IO
     
         public void Write(IEnumerable<System.Numerics.BigInteger> results)
         {
-            Console.Write(string.Join(" ", results.Select(r => r.ToString("R0"))));
+            _outputStream.Write((string.Join(" ", results.Select(r => r.ToString("R0")))));
         }
 
         public int GetNumber()
