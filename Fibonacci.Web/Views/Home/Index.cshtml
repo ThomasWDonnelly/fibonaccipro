@@ -1,5 +1,4 @@
-﻿@using System.Data.Entity.Infrastructure.Pluralization
-@model Fibonacci.Web.Models.IndexViewModel
+﻿@model Fibonacci.Web.Models.IndexViewModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -30,22 +29,17 @@
         }
     </div>
 </div>
-@if (Model.InputValue > 0)
+@if (Model.InputValue > 0 && Model.Results != null && Model.Results.Any())
 {
-
     <hr />
     <h1>Showing @Model.InputValue @(Model.InputValue > 1 ? "numbers" : "number") in the Fibonacci sequence.</h1>
     <div class="row">
         <div class="col-md-12">
             <ol>
-                @*@foreach (var result in Model.Results)
+                @foreach (var result in Model.Results)
                 {
-                    //well this is frustrating..  Can't get System.Numerics to be recognized..
-                    <li>@(result)</li>
-                }*@
-                <li>Result 1</li>
-                <li>Result 2</li>
-                <li>Result 3</li>
+                    <li>@result</li>
+                }
             </ol>
         </div>
     </div>

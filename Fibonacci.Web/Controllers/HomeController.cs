@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using Fibonacci.Web.Models;
+using FibonacciPro.ConsoleApplication;
 
 namespace Fibonacci.Web.Controllers
 {
@@ -13,11 +15,18 @@ namespace Fibonacci.Web.Controllers
     {
         //POST: "/"
         [HttpPost]
-        public ActionResult Index(IndexViewModel viewModel)
+        public ActionResult Index(IndexViewModel inputViewModel)
         {
             //redirect if not logged in yet
-            if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + viewModel.InputValue });
+            if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + inputViewModel.InputValue });
 
+            //prep return view model with results
+            var viewModel = new IndexViewModel { InputValue = inputViewModel.InputValue };
+
+            //only get results if input more than 0
+            if (inputViewModel.InputValue > 0) viewModel.Results = FibonacciCalculator.Calculate(inputViewModel.InputValue);
+
+            //return results via viewModel
             return View(viewModel);
         }
 
@@ -28,23 +37,15 @@ namespace Fibonacci.Web.Controllers
             //redirect if not logged in yet
             if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + n });
 
-            //path: "/" (no parameter)
-            if (n > 0)
-            {
-                Debug.WriteLine("n was null");
-            }
-            else
-            {
-                Debug.WriteLine("n was NOT null");
-            }
+            //prep return view model with results
+            var viewModel = new IndexViewModel {InputValue = n};
 
-            return View(new IndexViewModel
-            {
-                InputValue = n
-                //Results = new results
-            });
+            //only get results if input more than 0
+            if (n > 0) viewModel.Results = FibonacciCalculator.Calculate(n);
+            
+            //return results via viewModel
+            return View(viewModel);
         }
-
 
         public ActionResult TestServerError()
         {
