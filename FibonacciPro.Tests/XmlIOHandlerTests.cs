@@ -2,6 +2,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FibonacciPro.ConsoleApplication.IO;
 using System.IO;
+using System.Linq;
+using System.Numerics;
+using System.Xml.Linq;
 
 namespace FibonacciPro.Tests
 {
@@ -89,6 +92,64 @@ namespace FibonacciPro.Tests
             catch (ArgumentException ex)
             {
                 Assert.AreEqual("path", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void handler_writes_xml_output()
+        {
+            //Arrange
+            var path = "handler-writes-xml-output.xml";
+            var expectedResults = new BigInteger[] { 2, 3, 5 };
+            var handler = new XmlIOHandler(path);
+
+            //Act
+            handler.Write(expectedResults);
+
+            //Assert
+            var doc = XDocument.Load(path);
+            var root = doc.Element("fiboutput");
+
+            Assert.IsNotNull(root);
+            Assert.IsTrue(root.Elements("result").Any());
+
+            for(var i=0; i< expectedResults.Length; i++) 
+            {
+                Assert.IsNotNull(root.Elements("result").ElementAtOrDefault(i));
+                Assert.AreEqual(expectedResults[i].ToString("R0"), root.Elements("result").ElementAt(i).Value);
+            }
+        }
+
+        [TestMethod]
+        public void handler_overwrites_existing_files_with_xml_output()
+        {
+            //Arrange
+            var path = "sample-output.xml";
+            var firstResultSet = new BigInteger[] { 2, 3, 5 };
+            var firstHandler = new XmlIOHandler(path);
+            firstHandler.Write(firstResultSet);
+            if (!File.Exists(path))
+            {
+                Assert.Inconclusive("Unable to create test file to overwrite");
+            }
+
+            var updatedResultSet = new BigInteger[] { 1, 2, 3 };
+            var newHandler = new XmlIOHandler(path);
+
+            //Act
+            newHandler.Write(updatedResultSet);
+
+            //Assert
+            var doc = XDocument.Load(path);
+            var root = doc.Element("fiboutput");
+
+            Assert.IsNotNull(root);
+            Assert.IsTrue(root.Elements("result").Any());
+
+            for (var i = 0; i < updatedResultSet.Length; i++)
+            {
+                Assert.IsNotNull(root.Elements("result").ElementAtOrDefault(i));
+                Assert.AreEqual(updatedResultSet[i].ToString("R0"), root.Elements("result").ElementAt(i).Value);
             }
         }
     }
