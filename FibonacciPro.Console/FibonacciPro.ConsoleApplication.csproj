@@ -50,6 +50,7 @@
     <Compile Include="IO\GenericIOHandler.cs" />
     <Compile Include="IO\IInputHandler.cs" />
     <Compile Include="IO\IOutputHandler.cs" />
+    <Compile Include="IO\TextStreamIOHandler.cs" />
     <Compile Include="IO\TextFileIOHandler.cs" />
     <Compile Include="IO\XmlIOHandler.cs" />
     <Compile Include="Options.cs" />
