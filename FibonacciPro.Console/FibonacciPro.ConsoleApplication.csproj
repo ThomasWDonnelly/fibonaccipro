@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FibonacciCalculator.cs" />
+    <Compile Include="Calculators\ArrayCalculator.cs" />
+    <Compile Include="Calculators\GeneratorCalculator.cs" />
+    <Compile Include="Calculators\IFibonacciCalculator.cs" />
     <Compile Include="IO\ConsoleIOHandler.cs" />
     <Compile Include="IO\GenericIOHandler.cs" />
     <Compile Include="IO\IInputHandler.cs" />

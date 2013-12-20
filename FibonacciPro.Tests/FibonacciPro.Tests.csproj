@@ -57,6 +57,7 @@
     <Compile Include="CalculatorTests.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ArgumentTests.cs" />
     <Compile Include="XmlIOHandlerTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -64,7 +64,7 @@ namespace FibonacciPro.Tests
             }
 
             //Assert
-            catch (ApplicationException ex)
+            catch (ApplicationException)
             {
                 Assert.IsTrue(true); //Pass!
             }

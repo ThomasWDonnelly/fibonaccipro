@@ -7,7 +7,7 @@ namespace FibonacciPro.ConsoleApplication
     /// <summary>
     /// Options to be passed into the application from the command line
     /// </summary>
-    class Options
+    public class Options
     {
         /// <summary>
         /// User indicated flag for Interactive Mode
