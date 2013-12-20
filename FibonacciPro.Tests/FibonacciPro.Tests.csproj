@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.15.0\lib\net40\FakeItEasy.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.XML" />
@@ -54,8 +57,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AcceptanceTests.cs" />
+    <Compile Include="CalculatorTests.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ArgumentTests.cs" />
+    <Compile Include="ProgramFlowTests.cs" />
+    <Compile Include="XmlIOHandlerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FibonacciPro.Console\FibonacciPro.ConsoleApplication.csproj">
@@ -93,6 +100,9 @@
     <Content Include="non-numeric-input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
