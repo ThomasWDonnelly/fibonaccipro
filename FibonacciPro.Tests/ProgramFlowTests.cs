@@ -3,6 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FibonacciPro.ConsoleApplication;
 using FibonacciPro.ConsoleApplication.IO;
 using FibonacciPro.ConsoleApplication.Calculators;
+using FakeItEasy;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace FibonacciPro.Tests
 {
@@ -176,6 +179,31 @@ namespace FibonacciPro.Tests
 
             //Assert
             Assert.IsInstanceOfType(handler, typeof(GeneratorCalculator));
+        }
+
+        [TestMethod]
+        public void execution_retrieves_number_from_input_passes_to_calculator_and_exports_to_output()
+        {
+            //Arrange
+            var input = A.Fake<IInputHandler>();
+            A.CallTo(() => input.GetNumber())
+                .Returns(5);
+
+            var expectedResult = new BigInteger[] { 2, 3, 4 };
+            var calculator = A.Fake<IFibonacciCalculator>();
+            A.CallTo(calculator)
+                .WithReturnType<IEnumerable<BigInteger>>()
+                .Returns(expectedResult);
+
+            var output = A.Fake<IOutputHandler>();
+
+            //Act
+            Program.CalculateAndWriteResults(input, output, calculator);
+
+            //Assert
+            A.CallTo(() => input.GetNumber()).MustHaveHappened();
+            A.CallTo(() => calculator.Calculate(5)).MustHaveHappened();
+            A.CallTo(() => output.Write(expectedResult)).MustHaveHappened();
         }
 
     }
