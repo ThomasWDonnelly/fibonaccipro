@@ -24,27 +24,36 @@ namespace Fibonacci.Web.Controllers
             var viewModel = new IndexViewModel { InputValue = inputViewModel.InputValue };
 
             //only get results if input more than 0
-            if (inputViewModel.InputValue > 0) viewModel.Results = FibonacciCalculator.Calculate(inputViewModel.InputValue);
+            //if (inputViewModel.InputValue > 0) viewModel.Results = FibonacciCalculator.Calculate(inputViewModel.InputValue);
 
             //return results via viewModel
             return View(viewModel);
         }
 
-        //GET: /n (optional n)
+        //GET: /<n> (optional n)
+        
+        
         [HttpGet]
-        public ActionResult Index(int n = 0) //using "n" since it is appropriate in a mathematical sense..  should I use a more descriptive name?
+        [Authorize]
+        public ActionResult Get(int urlInputValue)
         {
-            //redirect if not logged in yet
-            if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + n });
+            ////redirect if not logged in yet
+            //if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + urlInputValue });
 
             //prep return view model with results
-            var viewModel = new IndexViewModel {InputValue = n};
+            var viewModel = new IndexViewModel {InputValue = urlInputValue};
 
             //only get results if input more than 0
-            if (n > 0) viewModel.Results = FibonacciCalculator.Calculate(n);
+            //if (urlInputValue > 0) viewModel.Results = FibonacciCalculator.Calculate(urlInputValue);
             
             //return results via viewModel
-            return View(viewModel);
+            return View("Index", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View(new IndexViewModel());
         }
 
         public ActionResult TestServerError()

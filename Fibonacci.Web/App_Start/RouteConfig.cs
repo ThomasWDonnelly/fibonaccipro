@@ -25,8 +25,8 @@ namespace Fibonacci.Web
             );
             routes.MapRoute(
                 name: "Input",
-                url: "{n}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{urlInputValue}",
+                defaults: new { controller = "Home", action = "Get" }
             );
             routes.MapRoute(
                 name: "Default",
