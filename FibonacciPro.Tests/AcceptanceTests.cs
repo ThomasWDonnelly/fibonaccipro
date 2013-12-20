@@ -22,6 +22,7 @@ namespace FibonacciPro.Tests
         public const int TIMEOUT_MILLISECONDS = 500;
 
         [TestMethod]
+        
         public void n_equals_1_returns_first_number()
         {
             //Arrange
@@ -36,6 +37,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void n_equals_2_returns_first_two_numbers()
         {
             //Arrange
@@ -50,6 +52,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void n_equals_3_returns_first_three_numbers()
         {
             //Arrange
@@ -64,6 +67,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void n_equals_4_returns_first_four_numbers()
         {
             //Arrange
@@ -78,6 +82,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void n_equals_negative_one_returns_error_exit_code_and_error_message()
         {
             //Arrange
@@ -91,6 +96,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void non_numeric_n_returns_error_exit_code_and_error_message()
         {
             //Arrange
@@ -104,6 +110,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void can_compute_50_results()
         {
             //Arrange
@@ -119,6 +126,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void can_compute_100_results()
         {
             //Arrange fib(99)
@@ -134,6 +142,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void can_compute_200_results()
         {
             //Arrange fib(199)
@@ -149,6 +158,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void can_compute_500_results()
         {
             //Arrange fib(499)
@@ -167,6 +177,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void can_compute_1000_results()
         {
             //Arrange fib(999)
@@ -196,6 +207,37 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
+        public void can_compute_1000_results_using_generator()
+        {
+            //Arrange fib(999)
+            BigInteger fib999 = new BigInteger(2)
+                * new BigInteger(17)
+                * new BigInteger(53)
+                * new BigInteger(73)
+                * new BigInteger(109)
+                * new BigInteger(149)
+                * new BigInteger(1997)
+                * new BigInteger(2221)
+                * new BigInteger(12653)
+                * new BigInteger(16061684237)
+                * new BigInteger(124134848933957)
+                * new BigInteger(1459000305513721)
+                * BigInteger.Parse("930507731557590226767593761")
+                * BigInteger.Parse("1687733481506255251903139456476245146806742007876216630876557")
+                * BigInteger.Parse("49044806374722940739127188459343134898237532255227554514970877");
+
+            //Act
+            var results = FibPro("--g 1000");
+            var sequence = results.StandardOut.Split(' ');
+
+            //Assert
+            Assert.AreEqual(fib999.ToString("R0"), sequence.Last());
+            Assert.AreEqual(SUCCESS, results.ExitCode);
+        }
+
+        [TestMethod]
+        
         public void users_can_give_interactive_input()
         {
             //Arrange
@@ -211,6 +253,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void can_take_text_input()
         {
             //Arrange
@@ -227,6 +270,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void text_input_with_negative_input_fails()
         {
             //Arrange
@@ -242,6 +286,7 @@ namespace FibonacciPro.Tests
 
 
         [TestMethod]
+        
         public void text_input_with_non_numeric_input_fails()
         {
             //Arrange
@@ -256,6 +301,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void can_take_xml_input()
         {
             //Arrange
@@ -272,6 +318,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void xml_input_with_negative_input_fails()
         {
             //Arrange
@@ -286,6 +333,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void xml_input_with_non_numeric_input_fails()
         {
             //Arrange
@@ -300,6 +348,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void xml_input_with_invalid_schema_elements_fails()
         {
             //Arrange
@@ -314,6 +363,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void xml_input_with_invalid_markup_fails()
         {
             //Arrange
@@ -328,6 +378,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void can_output_text_files()
         {
             //Arrange
@@ -346,6 +397,7 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
+        
         public void can_output_xml_files()
         {
             //Arrange
