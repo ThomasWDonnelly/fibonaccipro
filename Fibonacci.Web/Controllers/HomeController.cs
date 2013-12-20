@@ -23,13 +23,13 @@ namespace Fibonacci.Web.Controllers
 
         //GET: /n (optional n)
         [HttpGet]
-        public ActionResult Index(string n = "") //using "n" since it is appropriate in a mathematical sense..  should I use a more descriptive name?
+        public ActionResult Index(int n = 0) //using "n" since it is appropriate in a mathematical sense..  should I use a more descriptive name?
         {
             //redirect if not logged in yet
             if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + n });
 
             //path: "/" (no parameter)
-            if (n == "")
+            if (n > 0)
             {
                 Debug.WriteLine("n was null");
             }
