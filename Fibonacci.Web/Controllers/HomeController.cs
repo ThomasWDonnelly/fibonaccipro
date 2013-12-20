@@ -11,13 +11,25 @@ namespace Fibonacci.Web.Controllers
 {
     public class HomeController : Controller
     {
+        //POST: "/"
+        [HttpPost]
         public ActionResult Index(IndexViewModel viewModel)
         {
             //redirect if not logged in yet
             if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + viewModel.InputValue });
 
+            return View(viewModel);
+        }
+
+        //GET: /n (optional n)
+        [HttpGet]
+        public ActionResult Index(string n = "") //using "n" since it is appropriate in a mathematical sense..  should I use a more descriptive name?
+        {
+            //redirect if not logged in yet
+            if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + n });
+
             //path: "/" (no parameter)
-            if (viewModel.InputValue == null)
+            if (n == "")
             {
                 Debug.WriteLine("n was null");
             }
@@ -25,10 +37,16 @@ namespace Fibonacci.Web.Controllers
             {
                 Debug.WriteLine("n was NOT null");
             }
-            return View(viewModel);
+
+            return View(new IndexViewModel
+            {
+                InputValue = n
+                //Results = new results
+            });
         }
 
-        public ActionResult Test()
+
+        public ActionResult TestServerError()
         {
             throw new Exception("Testing 500 error");
         }

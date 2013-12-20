@@ -7,6 +7,7 @@ namespace Fibonacci.Web
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            //Removed this to allow custom 404 and 500 error pages
             //filters.Add(new HandleErrorAttribute());
         }
     }

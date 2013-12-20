@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form-inline" }))
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-inline" }))
         {
             @Html.ValidationSummary(true)
 
@@ -27,7 +27,7 @@
         }
     </div>
 </div>
-@if (Model.InputValue != null)
+@if (Model.InputValue != "")
 {
 
     <hr />
