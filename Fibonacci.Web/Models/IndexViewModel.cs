@@ -10,6 +10,6 @@ namespace Fibonacci.Web.Models
     public class IndexViewModel
     {
         public string InputValue { get; set; }
-        public IEnumerable<BigInteger> Results { get; set; }
+        public BigInteger[] Results { get; set; }
     }
 }
