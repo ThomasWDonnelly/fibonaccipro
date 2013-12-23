@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FibonacciPro.ConsoleApplication.Calculators
+namespace Fibonacci.Lib.Calculators
 {
     public interface IFibonacciCalculator
     {

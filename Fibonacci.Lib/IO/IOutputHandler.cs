@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace FibonacciPro.ConsoleApplication.IO
+namespace Fibonacci.Lib.IO
 {
     public interface IOutputHandler
     {

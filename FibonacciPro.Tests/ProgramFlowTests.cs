@@ -1,8 +1,9 @@
 ﻿using System;
+using Fibonacci.Lib.Calculators;
+using Fibonacci.Lib.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FibonacciPro.ConsoleApplication;
 using FibonacciPro.ConsoleApplication.IO;
-using FibonacciPro.ConsoleApplication.Calculators;
 using FakeItEasy;
 using System.Collections.Generic;
 using System.Numerics;

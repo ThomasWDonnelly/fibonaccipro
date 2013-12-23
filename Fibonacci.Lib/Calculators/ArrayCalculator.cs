@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace FibonacciPro.ConsoleApplication.Calculators
+namespace Fibonacci.Lib.Calculators
 {
     public class ArrayCalculator : IFibonacciCalculator
     {

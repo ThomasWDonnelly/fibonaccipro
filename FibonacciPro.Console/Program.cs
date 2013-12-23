@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
+using Fibonacci.Lib.Calculators;
+using Fibonacci.Lib.IO;
 using FibonacciPro.ConsoleApplication.IO;
-using FibonacciPro.ConsoleApplication.Calculators;
 
 namespace FibonacciPro.ConsoleApplication
 {

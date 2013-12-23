@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,7 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Calculators\ArrayCalculator.cs" />
+    <Compile Include="Calculators\GeneratorCalculator.cs" />
+    <Compile Include="Calculators\IFibonacciCalculator.cs" />
+    <Compile Include="IO\GenericIOHandler.cs" />
+    <Compile Include="IO\IInputHandler.cs" />
+    <Compile Include="IO\IOutputHandler.cs" />
+    <Compile Include="IO\TextFileIOHandler.cs" />
+    <Compile Include="IO\TextStreamIOHandler.cs" />
+    <Compile Include="IO\XmlIOHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

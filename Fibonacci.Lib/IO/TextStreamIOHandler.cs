@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FibonacciPro.ConsoleApplication.IO
+namespace Fibonacci.Lib.IO
 {
     public class TextStreamIOHandler : IInputHandler, IOutputHandler
     {

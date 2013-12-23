@@ -65,6 +65,10 @@
     <Compile Include="XmlIOHandlerTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fibonacci.Lib\Fibonacci.Lib.csproj">
+      <Project>{55b7f15f-3d03-4bb1-a7e4-47055edbccc3}</Project>
+      <Name>Fibonacci.Lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FibonacciPro.Console\FibonacciPro.ConsoleApplication.csproj">
       <Project>{45739ab6-0d5a-4dd6-b3e1-66de1b90f137}</Project>
       <Name>FibonacciPro.ConsoleApplication</Name>

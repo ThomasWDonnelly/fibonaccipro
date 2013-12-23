@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 
-namespace FibonacciPro.ConsoleApplication.IO
+namespace Fibonacci.Lib.IO
 {
     public class TextFileIOHandler : IInputHandler, IOutputHandler
     {

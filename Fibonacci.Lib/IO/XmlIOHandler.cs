@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Fibonacci.Lib.IO;
 
-namespace FibonacciPro.ConsoleApplication.IO
+namespace Fibonacci.Lib.IO
 {
     public class XmlIOHandler : IInputHandler, IOutputHandler
     {
