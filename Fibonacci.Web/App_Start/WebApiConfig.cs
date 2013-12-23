@@ -16,8 +16,8 @@ namespace Fibonacci.Web
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional}
+                routeTemplate: "api/{urlInputValue}/{format}",
+                defaults: new { controller = "Values", format = "json", urlInputValue = RouteParameter.Optional  }
             );
         }
     }

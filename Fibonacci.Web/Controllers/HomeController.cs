@@ -15,11 +15,9 @@ namespace Fibonacci.Web.Controllers
     {
         //POST: "/"
         [HttpPost]
+        [Authorize]
         public ActionResult Index(IndexViewModel inputViewModel)
         {
-            //redirect if not logged in yet
-            if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + inputViewModel.InputValue });
-
             //prep return view model with results
             var viewModel = new IndexViewModel { InputValue = inputViewModel.InputValue };
 
@@ -31,15 +29,10 @@ namespace Fibonacci.Web.Controllers
         }
 
         //GET: /<n> (optional n)
-        
-        
         [HttpGet]
         [Authorize]
         public ActionResult Get(int urlInputValue)
         {
-            ////redirect if not logged in yet
-            //if (!User.Identity.IsAuthenticated) return RedirectToAction("Login", "Account", new { returnUrl = "/" + urlInputValue });
-
             //prep return view model with results
             var viewModel = new IndexViewModel {InputValue = urlInputValue};
 
@@ -50,11 +43,13 @@ namespace Fibonacci.Web.Controllers
             return View("Index", viewModel);
         }
 
+        //GET: "/"
         [HttpGet]
         public ActionResult Index()
         {
             return View(new IndexViewModel());
         }
+
 
         public ActionResult TestServerError()
         {

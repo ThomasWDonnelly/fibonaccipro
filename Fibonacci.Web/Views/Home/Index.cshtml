@@ -19,7 +19,7 @@
 
                 @Html.LabelFor(model => model.InputValue, new { @class = "sr-only" })
 
-                @Html.TextBoxFor(model => model.InputValue, new { @class = "form-control", placeholder = "Input value" })
+                @Html.TextBoxFor(model => model.InputValue, new { @class = "form-control", placeholder = "Input value", value = "" })
                 
                 @Html.ValidationMessageFor(model => model.InputValue)
 
