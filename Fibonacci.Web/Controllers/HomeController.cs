@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Numerics;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
+using Fibonacci.Lib.Calculators;
 using Fibonacci.Web.Models;
-using FibonacciPro.ConsoleApplication;
 
 namespace Fibonacci.Web.Controllers
 {
     public class HomeController : Controller
     {
+
+        private IFibonacciCalculator _fibonacciCalculator;
+
+
         //POST: "/"
         [HttpPost]
         [Authorize]
@@ -22,7 +20,7 @@ namespace Fibonacci.Web.Controllers
             var viewModel = new IndexViewModel { InputValue = inputViewModel.InputValue };
 
             //only get results if input more than 0
-            //if (inputViewModel.InputValue > 0) viewModel.Results = FibonacciCalculator.Calculate(inputViewModel.InputValue);
+            if (inputViewModel.InputValue > 0) viewModel.Results = _fibonacciCalculator.Calculate(inputViewModel.InputValue);
 
             //return results via viewModel
             return View(viewModel);
@@ -37,7 +35,7 @@ namespace Fibonacci.Web.Controllers
             var viewModel = new IndexViewModel {InputValue = urlInputValue};
 
             //only get results if input more than 0
-            //if (urlInputValue > 0) viewModel.Results = FibonacciCalculator.Calculate(urlInputValue);
+            if (urlInputValue > 0) viewModel.Results = _fibonacciCalculator.Calculate(urlInputValue);
             
             //return results via viewModel
             return View("Index", viewModel);
@@ -48,12 +46,6 @@ namespace Fibonacci.Web.Controllers
         public ActionResult Index()
         {
             return View(new IndexViewModel());
-        }
-
-
-        public ActionResult TestServerError()
-        {
-            throw new Exception("Testing 500 error");
         }
     }
 }

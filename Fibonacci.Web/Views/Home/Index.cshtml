@@ -20,12 +20,12 @@
                 @Html.LabelFor(model => model.InputValue, new { @class = "sr-only" })
 
                 @Html.TextBoxFor(model => model.InputValue, new { @class = "form-control", placeholder = "Input value", value = "" })
-                
+
                 @Html.ValidationMessageFor(model => model.InputValue)
 
             </div>
 
-            <button type="submit" class="btn btn-default">Get Results</button>
+            <button type="submit" class="btn btn-default" onclick="find();">Get Results</button>
         }
     </div>
 </div>
@@ -35,7 +35,7 @@
     <h1>Showing @Model.InputValue @(Model.InputValue > 1 ? "numbers" : "number") in the Fibonacci sequence.</h1>
     <div class="row">
         <div class="col-md-12">
-            <ol>
+            <ol id="results">
                 @foreach (var result in Model.Results)
                 {
                     <li>@result</li>
@@ -43,4 +43,26 @@
             </ol>
         </div>
     </div>
+}
+
+@section scripts
+{
+    <script>
+        var uri = 'api';
+
+        function find() {
+            var id = $(@Html.Raw(("'#" + Html.IdFor(model => model.InputValue) + "'"))).val();
+            $.getJSON(uri + '/' + id)
+                .done(function (data) {
+                    // On success, 'data' contains a list of products.
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        $('<li>', { text: item }).appendTo($('#results'));
+                    });
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#results').text('Error: ' + err);
+                });
+        }
+    </script>
 }
