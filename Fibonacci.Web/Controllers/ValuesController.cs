@@ -17,7 +17,7 @@ namespace Fibonacci.Web.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
+        // GET api/5/<format>
         public string Get(int urlInputValue, string format)
         {
             return string.Format("Input Value: {0} - Format: {1}", urlInputValue, format);

@@ -8,8 +8,20 @@ namespace Fibonacci.Web.Controllers
     public class HomeController : Controller
     {
 
-        private IFibonacciCalculator _fibonacciCalculator;
+        private readonly IFibonacciCalculator _fibonacciCalculator;
 
+        //constructor
+        public HomeController(IFibonacciCalculator fibonacciCalculator)
+        {
+            _fibonacciCalculator = fibonacciCalculator;
+        }
+
+        //GET: "/"
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View(new IndexViewModel());
+        }
 
         //POST: "/"
         [HttpPost]
@@ -39,13 +51,6 @@ namespace Fibonacci.Web.Controllers
             
             //return results via viewModel
             return View("Index", viewModel);
-        }
-
-        //GET: "/"
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View(new IndexViewModel());
         }
     }
 }
