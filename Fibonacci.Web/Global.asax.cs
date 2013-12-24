@@ -16,23 +16,13 @@ namespace Fibonacci.Web
     {
         protected void Application_Start()
         {
-            //autofac 
-            var builder = new ContainerBuilder();
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
-
-            //types
-            builder.RegisterType<ArrayCalculator>().As<IFibonacciCalculator>();
-
-            //go
-            var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
             //built-in MVC setup
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutofacConfig.RegisterDependencies();
 
         }
     }

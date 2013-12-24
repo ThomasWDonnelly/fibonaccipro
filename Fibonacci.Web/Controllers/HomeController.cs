@@ -24,6 +24,7 @@ namespace Fibonacci.Web.Controllers
         }
 
         //POST: "/"
+        //this logic will almost always go through JS now, but we'll just keep this here for no-JS IE6 compatibility ;)
         [HttpPost]
         [Authorize]
         public ActionResult Index(IndexViewModel inputViewModel)
