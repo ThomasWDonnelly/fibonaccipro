@@ -6,12 +6,12 @@
 
 <div class="jumbotron">
     <h1>Fibonacci Pro</h1>
-    <p class="lead">Fibonacci Pro calculates Fibonacci numbers from a user's input and offers a variety of different output formats.</p>
+    <p class="lead">Fibonacci Pro calculates Fibonacci numbers from a user's input and offers a variety of different output formats via its Restful API.</p>
 </div>
 
 <div class="row">
     <div class="col-md-12 form-inline">
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {@class = "form-inline"}))
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-inline" }))
         {
             @Html.ValidationSummary(true)
 
@@ -19,62 +19,113 @@
 
                 @Html.LabelFor(model => model.InputValue, new { @class = "sr-only" })
 
-                @Html.TextBoxFor(model => model.InputValue, new { @class = "form-control", placeholder = "Input value", value = "" })
+                @Html.TextBoxFor(model => model.InputValue, new { @class = "form-control", placeholder = "Input value", type = "number", min = "1" })
 
                 @Html.ValidationMessageFor(model => model.InputValue)
 
-                @*<input class="form-control" data-val="true" data-val-number="The field InputValue must be a number." data-val-required="The InputValue field is required." id="InputValue" name="InputValue" placeholder="Input value" type="text" />
-                <input type="button" class="btn btn-default form-control" value="Get Results" onclick=" find(); ">*@
             </div>
 
-            <button type="submit" class="btn btn-default" >Get Results</button>
-            @*<input type="button" class="btn btn-default" value="Get Results" onclick="find();" />*@
+            <button type="submit" class="btn btn-default">Get Results</button>
         }
     </div>
+
+    <div id="results"></div>
 </div>
-@if (Model.InputValue > 0 && Model.Results != null && Model.Results.Any())
-{
-    <hr />
-    <h1>Showing @Model.InputValue @(Model.InputValue > 1 ? "numbers" : "number") in the Fibonacci sequence.</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <ol id="results">
-                @foreach (var result in Model.Results)
-                {
-                    <li>@result</li>
-                }
-            </ol>
-        </div>
-    </div>
-}
 
 @section scripts
 {
-    <script>
-        var uri = 'api';
+    @Scripts.Render("~/bundles/handlebars")
 
-        $(document).ready(function() {
+    <script type="text/javascript">
 
-            $('form').on('submit', function(e) {
+        $(document).ready(function () {
+
+            $('form button').click(function (e) {
+
+                //this didn't work? - worked after changing .on('submit'... to .click(function....
                 e.preventDefault();
 
-                $.get('/path/to/url')
+                //get input value from form element
+                var inputValue = $(@Html.Raw("'#" + Html.IdFor(model => model.InputValue) + "'")).val();
+
+                //stop if input is zero or invalid form
+                var $form = $('form');
+                if (inputValue <= 0 || !$form.valid()) { return false; }
+
+                DisplayResults(inputValue);
+
+                return false;
             });
         });
 
-        function find() {
-            var id = $(@Html.Raw(("'#" + Html.IdFor(model => model.InputValue) + "'"))).val();
-            $.getJSON(uri + '/' + id)
-                .done(function(data) {
-                    // On success, 'data' contains a list of products.
-                    $.each(data, function(key, item) {
-                        // Add a list item for the product.
-                        $('<li>', { text: item }).appendTo($('#results'));
-                    });
+        function DisplayResults(val) {
+
+            //get api result for input
+            $.getJSON('api/' + val)
+                .done(function (data) {
+
+                    //redirect to login if not authorized
+                    //data.authorized == "false" is customized output from API controller
+                    if (data.authorized == "false") {
+                        window.location = '@Url.Action("Login", "Account")' + '?returnUrl=' + encodeURIComponent('/' + val);
+                        return false;
+                    }
+
+                    // if auth'd then update view with template
+                    var source = $("#fibonacci-results").html();
+                    var template = Handlebars.compile(source);
+                    var html = template(data);
+
+                    //reset results view
+                    $('#results').empty();
+                    $("#results").append(html);
+                    return false;
                 })
-                .fail(function(jqXHR, textStatus, err) {
-                    $('#results').text('Error: ' + err);
+                .fail(function (jqXHR, textStatus, err) {
+
+                    //failure template
+                    var source = $("#fibonacci-error").html();
+                    var template = Handlebars.compile(source);
+                    var html = template({ errorMsg: err });
+
+                    //return error view
+                    $('#results').empty();
+                    $('#results').append(html);
+                    return false;
+
                 });
         }
+
     </script>
+
+    <script id="fibonacci-results" type="type/handlebars-template">
+        <hr />
+        <h1>Showing {{numberOfResults}} numbers in the Fibonacci sequence.</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <ol id="resultsOL">
+                    {{#each results}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ol>
+            </div>
+        </div>
+    </script>
+
+    <script id="fibonacci-error" type="type/handlebars-template">
+        <hr />
+        <h1>Error</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <p>{{errorMsg}}</p>
+            </div>
+        </div>
+    </script>
+
+    @if (Model.InputValue > 0)
+    {
+        //gross workaround, have to do this to get results display from a redirected login
+        //otherwise the JS never fires
+        <script type="text/javascript"> DisplayResults(@Model.InputValue);</script>
+    }
 }

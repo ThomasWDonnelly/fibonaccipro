@@ -14,7 +14,7 @@ namespace Fibonacci.Web.Models
     {
         [Required]
         [Integer(ErrorMessage = "Input must be a positive integer.")]
-        [Min(0, ErrorMessage = "Input must be a positive integer.")]
+        [Min(1, ErrorMessage = "Input must be a positive integer.")]
         public int InputValue { get; set; }
 
         public IEnumerable<BigInteger> Results { get; set; }
