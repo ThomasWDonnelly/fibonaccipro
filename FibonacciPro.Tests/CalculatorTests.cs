@@ -1,5 +1,4 @@
-﻿using FibonacciPro.ConsoleApplication;
-using FibonacciPro.ConsoleApplication.Calculators;
+﻿using Fibonacci.Lib.Calculators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
