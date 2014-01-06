@@ -33,8 +33,11 @@ namespace Fibonacci.Web.Controllers
                     new { authorized = "false", numberOfResults = 0, results = new object() });
             }
 
-            //get results array from calculator
-            var resultsArray = _fibonacciCalculator.Calculate(urlInputValue);
+            //get results array from calculator - converted to strings to avoid JS scientific notation in view results
+            var resultsArray = Array.ConvertAll(
+                (BigInteger[])_fibonacciCalculator.Calculate(urlInputValue), 
+                bi => bi.ToString()
+                );
 
             //handle diff formats
 
@@ -46,4 +49,5 @@ namespace Fibonacci.Web.Controllers
         }
 
     }
+
 }
