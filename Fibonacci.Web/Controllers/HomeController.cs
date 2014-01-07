@@ -33,7 +33,7 @@ namespace Fibonacci.Web.Controllers
             if (inputViewModel.InputValue > 0) 
                 viewModel.Results = _fibonacciCalculator.Calculate(inputViewModel.InputValue);
 
-            return View(viewModel);
+            return View("Index", viewModel);
         }
 
         //GET: /<n> (optional n)
@@ -41,12 +41,7 @@ namespace Fibonacci.Web.Controllers
         [Authorize]
         public ActionResult Get(int urlInputValue)
         {
-            var viewModel = new IndexViewModel {InputValue = urlInputValue};
-
-            if (urlInputValue > 0) 
-                viewModel.Results = _fibonacciCalculator.Calculate(urlInputValue);
-            
-            return View("Index", viewModel);
+            return Index(new IndexViewModel() { InputValue = urlInputValue });
         }
     }
 }
