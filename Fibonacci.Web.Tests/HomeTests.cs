@@ -62,6 +62,38 @@ namespace Fibonacci.Web.Tests
             result.AssertViewRendered().WithViewData<Models.IndexViewModel>();
             var viewData = ((ViewResult)result).Model as Models.IndexViewModel;
             Assert.AreEqual(expectedResult, viewData.Results);
-        }]
+        }
+
+        [TestMethod]
+        public void Index_returns_no_data_when_passed_0_value()
+        {
+            //Arrange
+            var calculator = A.Fake<IFibonacciCalculator>();
+            var controller = new HomeController(calculator);
+
+            //Act
+            var result = controller.Index(new Models.IndexViewModel() { InputValue = 0 });
+
+            //Assert
+            result.AssertViewRendered().WithViewData<Models.IndexViewModel>();
+            var viewData = ((ViewResult)result).Model as Models.IndexViewModel;
+            Assert.IsNull(viewData.Results);
+        }
+
+        [TestMethod]
+        public void Index_returns_no_data_when_passed_negative_value()
+        {
+            //Arrange
+            var calculator = A.Fake<IFibonacciCalculator>();
+            var controller = new HomeController(calculator);
+
+            //Act
+            var result = controller.Index(new Models.IndexViewModel() { InputValue = -5 });
+
+            //Assert
+            result.AssertViewRendered().WithViewData<Models.IndexViewModel>();
+            var viewData = ((ViewResult)result).Model as Models.IndexViewModel;
+            Assert.IsNull(viewData.Results);
+        }
     }
 }
