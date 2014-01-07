@@ -4,6 +4,8 @@ using Fibonacci.Web.Controllers;
 using MvcContrib.TestHelper;
 using FakeItEasy;
 using Fibonacci.Lib.Calculators;
+using System.Numerics;
+using System.Web.Mvc;
 
 namespace Fibonacci.Web.Tests
 {
@@ -38,10 +40,28 @@ namespace Fibonacci.Web.Tests
             var controller = new HomeController(calculator);
 
             //Act
-            controller.Index(new Models.IndexViewModel() { InputValue = 5 });
+            var result = controller.Index(new Models.IndexViewModel() { InputValue = 5 });
 
             //Assert
             A.CallTo(() => calculator.Calculate(5)).MustHaveHappened();
         }
+
+        [TestMethod]
+        public void Index_returns_view_with_data_when_passed_an_input()
+        {
+            //Arrange
+            var calculator = A.Fake<IFibonacciCalculator>();
+            var expectedResult = new BigInteger[] { 0, 1, 1, 2, 3 };
+            A.CallTo(() => calculator.Calculate(5)).Returns(expectedResult);
+            var controller = new HomeController(calculator);
+
+            //Act
+            var result = controller.Index(new Models.IndexViewModel() { InputValue = 5 });
+
+            //Assert
+            result.AssertViewRendered().WithViewData<Models.IndexViewModel>();
+            var viewData = ((ViewResult)result).Model as Models.IndexViewModel;
+            Assert.AreEqual(expectedResult, viewData.Results);
+        }]
     }
 }
