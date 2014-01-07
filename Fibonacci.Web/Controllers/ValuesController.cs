@@ -6,8 +6,8 @@ using System.Net.Http;
 using System.Numerics;
 using System.Web.Helpers;
 using System.Web.Http;
-using System.Web.Mvc;
 using Fibonacci.Lib.Calculators;
+using Fibonacci.Web.Models;
 
 namespace Fibonacci.Web.Controllers
 {
@@ -23,28 +23,18 @@ namespace Fibonacci.Web.Controllers
         }
 
         // GET api/5/<format>
-        public HttpResponseMessage Get(int urlInputValue, string format)
+        [Authorize]
+        public HttpResponseMessage Get(int urlInputValue)
         {
-            //check authorization, return 401 if not
-            if (!User.Identity.IsAuthenticated)
-            {
-                return this.Request.CreateResponse(
-                    HttpStatusCode.Unauthorized,
-                    new { authorized = "false", numberOfResults = 0, results = new object() });
-            }
-
             //get results array from calculator - converted to strings to avoid JS scientific notation in view results
-            var resultsArray = Array.ConvertAll(
-                (BigInteger[])_fibonacciCalculator.Calculate(urlInputValue), 
-                bi => bi.ToString()
-                );
+            var resultsArray = _fibonacciCalculator.Calculate(urlInputValue).Select(x => x.ToString("R0"));
 
             //handle diff formats
 
             //send back
-            return this.Request.CreateResponse(
-                HttpStatusCode.OK,
-                new { authorized = "true", numberOfResults = resultsArray.Count(), results = (object)resultsArray });
+            return  this.Request.CreateResponse(
+                    HttpStatusCode.OK,
+                    new FibApiResult { Success = true, Results = resultsArray });
 
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
 
@@ -16,12 +17,23 @@ namespace Fibonacci.Web
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+            
+            config.Routes.MapHttpRoute(
+                name: "ApiWithFormat",
+                routeTemplate: "api/{urlInputValue}/{ext}",
+                defaults: new { controller = "Values" }
+            );
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{urlInputValue}/{format}",
-                defaults: new { controller = "Values", format = "json", urlInputValue = RouteParameter.Optional  }
+                name: "Api",
+                routeTemplate: "api/{urlInputValue}",
+                defaults: new { controller = "Values", ext = "json"}
             );
+
+            
+
+            config.Formatters.JsonFormatter.MediaTypeMappings.Add(new UriPathExtensionMapping("json", "application/json"));
+            config.Formatters.XmlFormatter.MediaTypeMappings.Add(new UriPathExtensionMapping("xml", "application/xml"));
         }
     }
 }
