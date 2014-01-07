@@ -10,7 +10,6 @@ namespace Fibonacci.Web.Controllers
 
         private readonly IFibonacciCalculator _fibonacciCalculator;
 
-        //constructor
         public HomeController(IFibonacciCalculator fibonacciCalculator)
         {
             _fibonacciCalculator = fibonacciCalculator;
@@ -29,13 +28,11 @@ namespace Fibonacci.Web.Controllers
         [Authorize]
         public ActionResult Index(IndexViewModel inputViewModel)
         {
-            //prep return view model with results
             var viewModel = new IndexViewModel { InputValue = inputViewModel.InputValue };
 
-            //only get results if input more than 0
-            if (inputViewModel.InputValue > 0) viewModel.Results = _fibonacciCalculator.Calculate(inputViewModel.InputValue);
+            if (inputViewModel.InputValue > 0) 
+                viewModel.Results = _fibonacciCalculator.Calculate(inputViewModel.InputValue);
 
-            //return results via viewModel
             return View(viewModel);
         }
 
@@ -44,13 +41,11 @@ namespace Fibonacci.Web.Controllers
         [Authorize]
         public ActionResult Get(int urlInputValue)
         {
-            //prep return view model with results
             var viewModel = new IndexViewModel {InputValue = urlInputValue};
 
-            //only get results if input more than 0
-            if (urlInputValue > 0) viewModel.Results = _fibonacciCalculator.Calculate(urlInputValue);
+            if (urlInputValue > 0) 
+                viewModel.Results = _fibonacciCalculator.Calculate(urlInputValue);
             
-            //return results via viewModel
             return View("Index", viewModel);
         }
     }
