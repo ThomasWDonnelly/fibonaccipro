@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Numerics;
-using System.Web.Helpers;
 using System.Web.Http;
+
 using Fibonacci.Lib.Calculators;
 using Fibonacci.Web.Models;
 
@@ -13,9 +12,7 @@ namespace Fibonacci.Web.Controllers
 {
     public class ValuesController : ApiController
     {
-
         private readonly IFibonacciCalculator _fibonacciCalculator;
-
         //constructor
         public ValuesController(IFibonacciCalculator fibonacciCalculator)
         {
@@ -32,12 +29,9 @@ namespace Fibonacci.Web.Controllers
             //handle diff formats
 
             //send back
-            return  this.Request.CreateResponse(
-                    HttpStatusCode.OK,
-                    new FibApiResult { Success = true, Results = resultsArray });
-
+            return this.Request.CreateResponse(
+                HttpStatusCode.OK,
+                new FibApiResult { Success = true, Results = resultsArray });
         }
-
     }
-
 }

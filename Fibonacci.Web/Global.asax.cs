@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Autofac;
-using Autofac.Integration.Mvc;
-using Fibonacci.Lib.Calculators;
+
+using Fibonacci.Web.App_Start;
 
 namespace Fibonacci.Web
 {
@@ -19,11 +17,10 @@ namespace Fibonacci.Web
             //built-in MVC setup
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            FilterConfig.RegisterGlobalFilters();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutofacConfig.RegisterDependencies();
-
         }
     }
 }

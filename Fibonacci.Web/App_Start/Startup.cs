@@ -1,8 +1,12 @@
-﻿using Microsoft.Owin;
+﻿using Fibonacci.Web.App_Start;
+
+using Microsoft.Owin;
+
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Fibonacci.Web.Startup))]
-namespace Fibonacci.Web
+[assembly: OwinStartup(typeof(Startup))]
+
+namespace Fibonacci.Web.App_Start
 {
     public partial class Startup
     {

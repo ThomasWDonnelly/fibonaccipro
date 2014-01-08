@@ -5,7 +5,7 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
 
-namespace Fibonacci.Web
+namespace Fibonacci.Web.App_Start
 {
     public static class WebApiConfig
     {
@@ -17,20 +17,18 @@ namespace Fibonacci.Web
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            
+
             config.Routes.MapHttpRoute(
                 name: "ApiWithFormat",
                 routeTemplate: "api/{urlInputValue}/{ext}",
                 defaults: new { controller = "Values" }
-            );
+                );
 
             config.Routes.MapHttpRoute(
                 name: "Api",
                 routeTemplate: "api/{urlInputValue}",
-                defaults: new { controller = "Values", ext = "json"}
-            );
-
-            
+                defaults: new { controller = "Values", ext = "json" }
+                );
 
             config.Formatters.JsonFormatter.MediaTypeMappings.Add(new UriPathExtensionMapping("json", "application/json"));
             config.Formatters.XmlFormatter.MediaTypeMappings.Add(new UriPathExtensionMapping("xml", "application/xml"));

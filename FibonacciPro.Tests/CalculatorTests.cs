@@ -1,11 +1,11 @@
-﻿using Fibonacci.Lib.Calculators;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+
+using Fibonacci.Lib.Calculators;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FibonacciPro.Tests
 {
@@ -183,20 +183,20 @@ namespace FibonacciPro.Tests
         {
             //Arrange fib(999)
             BigInteger fib999 = new BigInteger(2)
-                * new BigInteger(17)
-                * new BigInteger(53)
-                * new BigInteger(73)
-                * new BigInteger(109)
-                * new BigInteger(149)
-                * new BigInteger(1997)
-                * new BigInteger(2221)
-                * new BigInteger(12653)
-                * new BigInteger(16061684237)
-                * new BigInteger(124134848933957)
-                * new BigInteger(1459000305513721)
-                * BigInteger.Parse("930507731557590226767593761")
-                * BigInteger.Parse("1687733481506255251903139456476245146806742007876216630876557")
-                * BigInteger.Parse("49044806374722940739127188459343134898237532255227554514970877");
+                                * new BigInteger(17)
+                                * new BigInteger(53)
+                                * new BigInteger(73)
+                                * new BigInteger(109)
+                                * new BigInteger(149)
+                                * new BigInteger(1997)
+                                * new BigInteger(2221)
+                                * new BigInteger(12653)
+                                * new BigInteger(16061684237)
+                                * new BigInteger(124134848933957)
+                                * new BigInteger(1459000305513721)
+                                * BigInteger.Parse("930507731557590226767593761")
+                                * BigInteger.Parse("1687733481506255251903139456476245146806742007876216630876557")
+                                * BigInteger.Parse("49044806374722940739127188459343134898237532255227554514970877");
 
             //Act
             var result = _arrayCalculator.Calculate(1000).Last();
@@ -205,26 +205,25 @@ namespace FibonacciPro.Tests
             Assert.AreEqual(fib999, result);
         }
 
-
         [TestMethod]
         public void generator_can_compute_1000_results()
         {
             //Arrange fib(999)
             BigInteger fib999 = new BigInteger(2)
-                * new BigInteger(17)
-                * new BigInteger(53)
-                * new BigInteger(73)
-                * new BigInteger(109)
-                * new BigInteger(149)
-                * new BigInteger(1997)
-                * new BigInteger(2221)
-                * new BigInteger(12653)
-                * new BigInteger(16061684237)
-                * new BigInteger(124134848933957)
-                * new BigInteger(1459000305513721)
-                * BigInteger.Parse("930507731557590226767593761")
-                * BigInteger.Parse("1687733481506255251903139456476245146806742007876216630876557")
-                * BigInteger.Parse("49044806374722940739127188459343134898237532255227554514970877");
+                                * new BigInteger(17)
+                                * new BigInteger(53)
+                                * new BigInteger(73)
+                                * new BigInteger(109)
+                                * new BigInteger(149)
+                                * new BigInteger(1997)
+                                * new BigInteger(2221)
+                                * new BigInteger(12653)
+                                * new BigInteger(16061684237)
+                                * new BigInteger(124134848933957)
+                                * new BigInteger(1459000305513721)
+                                * BigInteger.Parse("930507731557590226767593761")
+                                * BigInteger.Parse("1687733481506255251903139456476245146806742007876216630876557")
+                                * BigInteger.Parse("49044806374722940739127188459343134898237532255227554514970877");
 
             //Act
             var result = _generatorCalculator.Calculate(1000).Last();
@@ -245,7 +244,6 @@ namespace FibonacciPro.Tests
             //Assert
             Assert.AreEqual(fib9999, result);
         }
-
 
         [TestMethod]
         public void generator_can_compute_10000_results()

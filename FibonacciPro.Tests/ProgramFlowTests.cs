@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+
+using FakeItEasy;
+
 using Fibonacci.Lib.Calculators;
 using Fibonacci.Lib.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using FibonacciPro.ConsoleApplication;
 using FibonacciPro.ConsoleApplication.IO;
-using FakeItEasy;
-using System.Collections.Generic;
-using System.Numerics;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FibonacciPro.Tests
 {
@@ -206,6 +211,5 @@ namespace FibonacciPro.Tests
             A.CallTo(() => calculator.Calculate(5)).MustHaveHappened();
             A.CallTo(() => output.Write(expectedResult)).MustHaveHappened();
         }
-
     }
 }

@@ -1,28 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Numerics;
 
 namespace Fibonacci.Lib.IO
 {
     public class TextFileIOHandler : IInputHandler, IOutputHandler
     {
-        private string _path;
+        private readonly string _path;
 
         public TextFileIOHandler(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
+            {
                 throw new ArgumentException("path must not be an empty string", "path");
+            }
 
             _path = path;
         }
 
         public int GetNumber()
         {
-            var number = 0;
+            int number;
 
             if (!File.Exists(_path))
-                throw new ArgumentException("path for input files must be to an actual path to a file", "path");
+            {
+                throw new ArgumentException("path for input files must be to an actual path to a file");
+            }
 
             try
             {
@@ -46,7 +51,6 @@ namespace Fibonacci.Lib.IO
         {
             try
             {
-
                 using (var writer = new StreamWriter(_path, append: false))
                 {
                     foreach (var result in results)

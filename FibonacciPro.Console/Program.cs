@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 
 using Fibonacci.Lib.Calculators;
 using Fibonacci.Lib.IO;
+
 using FibonacciPro.ConsoleApplication.IO;
 
 namespace FibonacciPro.ConsoleApplication
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
@@ -23,8 +23,16 @@ namespace FibonacciPro.ConsoleApplication
 
                 CalculateAndWriteResults(inputHandler, outputHandler, calculator);
             }
-            catch (ApplicationException ex) { Console.Error.Write(ex.Message); Environment.Exit(CommandLine.Parser.DefaultExitCodeFail); }
-            catch (ArgumentException ex) { Console.Error.Write(ex.Message); Environment.Exit(CommandLine.Parser.DefaultExitCodeFail); }
+            catch (ApplicationException ex)
+            {
+                Console.Error.Write(ex.Message);
+                Environment.Exit(CommandLine.Parser.DefaultExitCodeFail);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.Error.Write(ex.Message);
+                Environment.Exit(CommandLine.Parser.DefaultExitCodeFail);
+            }
         }
 
         public static void CalculateAndWriteResults(IInputHandler inputHandler, IOutputHandler outputHandler, IFibonacciCalculator calculator)
@@ -40,13 +48,12 @@ namespace FibonacciPro.ConsoleApplication
 
             CommandLine.Parser.Default.ParseArgumentsStrict(args, options);
 
-            if (options.InputNumber <= 0 && string.IsNullOrWhiteSpace(options.InputFile) && !options.UseInteractiveMode())
+            if (options.InputNumber > 0 || !string.IsNullOrWhiteSpace(options.InputFile) || options.UseInteractiveMode())
             {
-                Console.Error.Write(CommandLine.Text.HelpText.AutoBuild(options));
-                throw new ArgumentException("Invalid paramater set", "args");
+                return options;
             }
-
-            return options;
+            Console.Error.Write(CommandLine.Text.HelpText.AutoBuild(options));
+            throw new ArgumentException("Invalid paramater set", "args");
         }
 
         public static IInputHandler GetInputHandler(Options options)
@@ -58,7 +65,7 @@ namespace FibonacciPro.ConsoleApplication
 
             if (options.InputNumber > 0)
             {
-                return new GenericIOHandler() { InputHandler = () => options.InputNumber };
+                return new GenericIOHandler { InputHandler = () => options.InputNumber };
             }
 
             switch (options.InputFileType)
@@ -70,32 +77,31 @@ namespace FibonacciPro.ConsoleApplication
                 case Options.FileType.Xml:
                     return new XmlIOHandler(options.InputFile);
             }
-
-
         }
 
         public static IOutputHandler GetOutputHandler(Options options)
         {
             IOutputHandler result = new ConsoleIOHandler();
 
-            if (!string.IsNullOrWhiteSpace(options.OutputFile))
+            if (string.IsNullOrWhiteSpace(options.OutputFile))
             {
-                switch (options.OutputFileType)
-                {
-                    default:
-                    case Options.FileType.PlainText:
-                        return new TextFileIOHandler(options.OutputFile);
-                    case Options.FileType.Xml:
-                        return new XmlIOHandler(options.OutputFile);
-                }
+                return result;
             }
 
-            return result;
+            switch (options.OutputFileType)
+            {
+                default:
+                case Options.FileType.PlainText:
+                    return new TextFileIOHandler(options.OutputFile);
+                case Options.FileType.Xml:
+                    return new XmlIOHandler(options.OutputFile);
+            }
         }
 
         public static IFibonacciCalculator GetCalculator(Options options)
         {
-            if(options.UseGenerator) {
+            if (options.UseGenerator)
+            {
                 return new GeneratorCalculator();
             }
 

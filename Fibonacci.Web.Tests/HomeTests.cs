@@ -1,22 +1,26 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Fibonacci.Web.Controllers;
-using MvcContrib.TestHelper;
-using FakeItEasy;
-using Fibonacci.Lib.Calculators;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Web.Mvc;
+
+using FakeItEasy;
+
+using Fibonacci.Lib.Calculators;
+using Fibonacci.Web.Controllers;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using MvcContrib.TestHelper;
 
 namespace Fibonacci.Web.Tests
 {
     [TestClass]
     public class HomeTests
     {
-
         [TestInitialize]
         public void Setup()
         {
-            
         }
 
         [TestMethod]

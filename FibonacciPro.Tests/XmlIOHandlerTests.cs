@@ -1,11 +1,13 @@
 ﻿using System;
-using Fibonacci.Lib.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FibonacciPro.ConsoleApplication.IO;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Xml.Linq;
+
+using Fibonacci.Lib.IO;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FibonacciPro.Tests
 {
@@ -15,7 +17,6 @@ namespace FibonacciPro.Tests
         [TestMethod]
         public void handler_can_accept_xml_input()
         {
-
             //Arrange
             var handler = new XmlIOHandler("input.xml");
             var expectedResult = 22;
@@ -30,18 +31,19 @@ namespace FibonacciPro.Tests
         [TestMethod]
         public void handler_throws_argument_exception_when_given_invalid_path()
         {
-
             //Arrange
             var handler = new XmlIOHandler("does-not-exist.xml");
 
             //Act
-            try {
+            try
+            {
                 var result = handler.GetNumber();
                 Assert.Fail("did not throw ArgumentException with path paramater");
             }
 
-            //Assert
-            catch (ArgumentException ex) {
+                //Assert
+            catch (ArgumentException ex)
+            {
                 Assert.AreEqual("path", ex.ParamName);
             }
         }
@@ -49,7 +51,6 @@ namespace FibonacciPro.Tests
         [TestMethod]
         public void handler_throws_application_exception_when_given_invalid_markup()
         {
-
             //Arrange
             var path = "invalid-markup-input.xml";
             var handler = new XmlIOHandler(path);
@@ -64,7 +65,7 @@ namespace FibonacciPro.Tests
                 Assert.Fail("did not throw ArgumentException with path paramater");
             }
 
-            //Assert
+                //Assert
             catch (ApplicationException)
             {
                 Assert.IsTrue(true); //Pass!
@@ -74,7 +75,6 @@ namespace FibonacciPro.Tests
         [TestMethod]
         public void handler_throws_application_exception_when_given_invalid_schema()
         {
-
             //Arrange
             var path = "invalid-schema-elements-input.xml";
             var handler = new XmlIOHandler(path);
@@ -89,7 +89,7 @@ namespace FibonacciPro.Tests
                 Assert.Fail("did not throw ArgumentException with path paramater");
             }
 
-            //Assert
+                //Assert
             catch (ArgumentException ex)
             {
                 Assert.AreEqual("path", ex.ParamName);
@@ -114,7 +114,7 @@ namespace FibonacciPro.Tests
             Assert.IsNotNull(root);
             Assert.IsTrue(root.Elements("result").Any());
 
-            for(var i=0; i< expectedResults.Length; i++) 
+            for (var i = 0; i < expectedResults.Length; i++)
             {
                 Assert.IsNotNull(root.Elements("result").ElementAtOrDefault(i));
                 Assert.AreEqual(expectedResults[i].ToString("R0"), root.Elements("result").ElementAt(i).Value);

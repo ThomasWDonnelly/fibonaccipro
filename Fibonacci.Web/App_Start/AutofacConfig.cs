@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+
 using Fibonacci.Lib.Calculators;
 
-namespace Fibonacci.Web
+namespace Fibonacci.Web.App_Start
 {
-    public class AutofacConfig
+    public static class AutofacConfig
     {
         public static void RegisterDependencies()
         {

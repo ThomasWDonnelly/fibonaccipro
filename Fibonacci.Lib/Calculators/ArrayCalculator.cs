@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace Fibonacci.Lib.Calculators
 {
     public class ArrayCalculator : IFibonacciCalculator
     {
-
         public IEnumerable<BigInteger> Calculate(int n)
         {
             if (n <= 0)
+            {
                 throw new ArgumentException("n must be greater than 0", "n");
+            }
 
             //By definition
             if (n == 1)
@@ -36,7 +38,5 @@ namespace Fibonacci.Lib.Calculators
 
             return result;
         }
-
-        
     }
 }

@@ -7,42 +7,46 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using Fibonacci.Lib.IO;
 
 namespace Fibonacci.Lib.IO
 {
     public class XmlIOHandler : IInputHandler, IOutputHandler
     {
-        private string _path;
+        private readonly string _path;
 
         public XmlIOHandler(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
+            {
                 throw new ArgumentException("path must not be an empty string", "path");
+            }
 
             _path = path;
         }
-    
+
         public int GetNumber()
         {
             if (!File.Exists(_path))
+            {
                 throw new ArgumentException("XML file specified does not exist", "path");
+            }
             try
             {
                 var doc = XDocument.Load(_path);
-                var inputValue = 0;
+                int inputValue;
 
-                if(doc.Element("fibinput") == null)
+                if (doc.Element("fibinput") == null)
+                {
                     throw new ArgumentException("XML file did not contain fibinput as the root element.", "path");
+                }
 
+                // ReSharper disable once PossibleNullReferenceException
                 if (int.TryParse(doc.Element("fibinput").Value, out inputValue))
                 {
                     return inputValue;
                 }
-                else
-                {
-                    throw new ArgumentException("fibinput element did not contain an integer value.", "path");
-                }
+                
+                throw new ArgumentException("fibinput element did not contain an integer value.", "path");
             }
             catch (XmlException ex)
             {
@@ -54,7 +58,7 @@ namespace Fibonacci.Lib.IO
         {
             try
             {
-                var resultsObject = new OutputFormat() { Result = results.Select(x => x.ToString("R0")).ToArray() };
+                var resultsObject = new OutputFormat { Result = results.Select(x => x.ToString("R0")).ToArray() };
 
                 using (var fileStream = new FileStream(_path, FileMode.Create))
                 using (var xmlWriter = new XmlTextWriter(fileStream, Encoding.Unicode))
@@ -62,7 +66,6 @@ namespace Fibonacci.Lib.IO
                     var serializer = new XmlSerializer(typeof(OutputFormat));
                     serializer.Serialize(xmlWriter, resultsObject);
                 }
-
             }
             catch (IOException ex)
             {

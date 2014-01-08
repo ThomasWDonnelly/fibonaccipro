@@ -1,16 +1,19 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
+
 using FibonacciPro.ConsoleApplication;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FibonacciPro.Tests
 {
     [TestClass]
     public class ArgumentTests
     {
-
         [TestMethod]
-        
-        public void t_arg_enables_interactive_mode() {
+        public void t_arg_enables_interactive_mode()
+        {
             //Arrange
             var args = "-t".Split(' ');
 
@@ -23,7 +26,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void interactive_arg_enables_interactive_mode()
         {
             //Arrange
@@ -38,7 +40,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void i_arg_registers_input_file()
         {
             //Arrange
@@ -52,7 +53,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void input_file_with_txt_extension_registers_text_file()
         {
             //Arrange
@@ -67,7 +67,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void input_file_with_xml_extension_registers_xml_file()
         {
             //Arrange
@@ -82,7 +81,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void input_file_with_no_extension_registers_undefined_file()
         {
             //Arrange
@@ -97,7 +95,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void input_file_with_other_extension_registers_undefined_file()
         {
             //Arrange
@@ -112,7 +109,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void input_file_ending_with_a_dot_registers_undefined_file()
         {
             //Arrange
@@ -127,7 +123,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void input_file_ending_with_xml_registers_xml_file()
         {
             //Arrange
@@ -142,7 +137,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void output_file_with_file_path_ending_with_xml_registers_xml_file()
         {
             //Arrange
@@ -157,7 +151,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void output_file_with_file_path_ending_with_txt_registers_txt_file()
         {
             //Arrange
@@ -172,7 +165,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void output_file_with_file_path_ending_with_other_registers_undefined_file()
         {
             //Arrange
@@ -187,7 +179,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void output_file_with_file_path_ending_with_a_dot_registers_undefined_file()
         {
             //Arrange
@@ -202,7 +193,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void output_file_with_file_path_ending_with_no_extension_registers_undefined_file()
         {
             //Arrange
@@ -217,7 +207,6 @@ namespace FibonacciPro.Tests
         }
 
         [TestMethod]
-        
         public void output_directive_with_no_input_throws_ArgumentException()
         {
             //Arrange
@@ -234,8 +223,8 @@ namespace FibonacciPro.Tests
                 Assert.IsTrue(true);
             }
         }
+
         [TestMethod]
-        
         public void no_arguments_throws_ArgumentException()
         {
             //Arrange

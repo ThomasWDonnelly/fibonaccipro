@@ -38,9 +38,9 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
-            $('form button').click(function (e) {
+            $('form button').click(function(e) {
 
                 //this didn't work? - UPDATE: worked after changing .on('submit'... to .click(function....
                 e.preventDefault();
@@ -50,7 +50,9 @@
 
                 //stop if input is zero or invalid form
                 var $form = $('form');
-                if (inputValue <= 0 || !$form.valid()) { return false; }
+                if (inputValue <= 0 || !$form.valid()) {
+                    return false;
+                }
 
                 DisplayResults(inputValue);
 
@@ -62,7 +64,7 @@
 
             //get api result for input
             $.getJSON('api/' + val)
-                .done(function (data) {
+                .done(function(data) {
 
                     //redirect to login if not authorized
                     //data.authorized == "false" is customized output from API controller
@@ -81,7 +83,7 @@
                     $("#results").append(html);
                     return false;
                 })
-                .fail(function (jqXHR, textStatus, err) {
+                .fail(function(xhr, textStatus, err) {
 
                     //failure template
                     var source = $("#fibonacci-error").html();
@@ -126,6 +128,6 @@
     {
         //gross workaround, have to do this to get results display from a redirected login
         //otherwise the JS never fires
-        <script type="text/javascript"> DisplayResults(@Model.InputValue);</script>
+        <script type="text/javascript"> DisplayResults(@Model.InputValue); </script>
     }
 }
